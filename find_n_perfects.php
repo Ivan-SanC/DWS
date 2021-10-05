@@ -30,25 +30,24 @@
 
         if(array_sum(getDivisors($num))==$num){
             return true;
-        }else{
-            return  false;
         }
-
+            return  false;
     }
 
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
         $i=0;
-        $j=1;
-        while($i<$num){
-            if (isPerfectNum($j)) {
-                echo $j . "<br/>";
-                $i++;
-
+        $perfects=Array();
+        while(count($perfects)<$num){
+            $i++;
+            if (isPerfectNum($i)) {
+                $perfects[]=$i;
             }
-            $j++;
         }
-
+    echo "First".$num."perfect numbers are: <br>";
+        foreach ($perfects as $perfect){
+            echo  "·".$perfect."<br>";
+        }
     }
     ?>
 </div>
