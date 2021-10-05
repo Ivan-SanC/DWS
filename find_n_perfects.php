@@ -16,7 +16,7 @@
 
         $divisors=array();
 
-        for($i=1; $i<=$num; $i++){
+        for($i=1; $i<$num; $i++){
 
             if($num % $i == 0){
                 $divisors[]=$i;
@@ -28,24 +28,20 @@
 
     function isPerfectNum($num){
 
-        foreach (getDivisors($num) as $suma){
-            $total =0;
-            $total=$suma+$total;
-            if($total==$num){
-                return true;
-            }else{
-                return false;
-            }
+        if(array_sum(getDivisors($num))==$num){
+            return true;
+        }else{
+            return  false;
         }
-        return
+
     }
 
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
-        $i=1;
-        $j=0;
-        while($i<=$num){
-            if (sPerfectNum($j)) {
+        $i=0;
+        $j=1;
+        while($i<$num){
+            if (isPerfectNum($j)) {
                 echo $j . "<br/>";
                 $i++;
 
