@@ -33,7 +33,7 @@
 
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
-        echo getFila($num);
+        getFila($num);
     }
     ?>
 </>
