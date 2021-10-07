@@ -10,19 +10,22 @@
     </label>
     <input type="submit"/>
 </form>
-<div>
+<div style="background-color: skyblue; display: inline-block;">
+
     <?php
     function getFila($num){
 
         for ($i=1; $i <=$num; $i++) {
 
             for($m=1;$m<=$num-$i;$m++ ){
-                echo  " &nbsp";
+                echo '<span style="color: skyblue">*</span>';
             }
             for ($a=1; $a<=$i*2-1;$a++){
-                echo "*";
+                echo '<span style="color: forestgreen">*</span>';
             }
-
+            for($m=1;$m<=$num-$i;$m++ ){
+                echo  '<span style="color: skyblue">*</span>';
+            }
             echo "<br>";
         }
     }
@@ -33,6 +36,6 @@
         echo getFila($num);
     }
     ?>
-</div>
+</>
 </body>
 </html>
