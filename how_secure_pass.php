@@ -2,15 +2,17 @@
 <head>
     <title>How secure is your password</title>
     <style>
+        h1{text-align: center;}
         form {text-align: center;}
+        p{text-align: center; font-size: 20px;}
 
     </style>
 </head>
 <body>
+<h1>How Secures Is My Password?</h1>
+
 <form method="post" action="how_secure_pass.php">
     <label>
-        <h1>How Secures Is My Password?</h1>
-        <br>
         <input type="password" name="pass"/>
     </label>
     <input type="submit"/>
@@ -27,22 +29,42 @@
     }
 
     function getColor($pass){
-        if (getTime($pass)<=1){
-            //rojo
+
+            //menos de 1 sec
+        if (getTime($pass)<=1 || mostUsed($pass)){
             echo '<body style="background-color:darkred">';
-        }elseif (getTime($pass)>1 && getTime($pass)<=2.628e+6){
-            //amarillo
+            echo "<p>Contraseña muy fácil</p>";
+
+            //menos de 1 mes
+        }elseif (getTime($pass)<=2.628e+6){
             echo '<body style="background-color:orange">';
+            echo "<p>Contraseña media</p>";
+
+            //mas de 1 mes menos de 1 año
         }elseif (getTime($pass)>2.628e+6 && getTime($pass)<=3.154e+9){
-            //azul
             echo '<body style="background-color:cornflowerblue">';
+            echo "<p>Contraseña dificil</p>";
+
+            //mas de 1 año
         }else{
             //verde
-            echo '<body style="background-color:darkslategrey">';
+            echo '<body style="background-color:forestgreen">';
+            echo "<p>Constraseña muy dificil</p>";
         }
 
     }
 
+    function mostUsed($pass){
+        $array=array("12345","123456789", "qwerty", "password", "12345",
+            "qwerty123", "1q2w3e", "12345678","111111","1234567890" );
+
+        if (in_array($pass,$array)){
+            echo "<p>Esta contraseña está en el top 10</p>";
+            return true;
+        }
+        return false;
+
+    }
 
     if (isset($_POST["pass"])) {
         $pass = $_POST["pass"];
