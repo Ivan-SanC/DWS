@@ -52,7 +52,7 @@
         }else{
             //verde
             echo '<body style="background-color:forestgreen">';
-            echo "<p>Constraseña muy difícil</p>";
+            echo "<p>Constraseña muy difícil </p>";
         }
 
     }
