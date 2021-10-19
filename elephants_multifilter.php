@@ -44,7 +44,7 @@ function getSortedElephantsByBirth($elephants)
             $valorB = $elephants[$fila2];
 
             //le indicamos que compare la fila y la columna específica
-            if ($elephants[$fila]["dob"] > $elephants[$fila2]["dob"]) {
+            if (intval($elephants[$fila]["dob"]) > intval($elephants[$fila2]["dob"])) {
                 $elephants[$fila] = $valorB;
                 $elephants[$fila2] = $valorA;
 
@@ -103,6 +103,8 @@ if (isset($_GET["sortingCriteria"])) {
     } else {
         $sort = $elephants;
     }
+}else {
+    $sort = $elephants;
 }
 
 ?>
