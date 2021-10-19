@@ -33,7 +33,7 @@
         //menos de 1 sec
         if (getTime($pass)<=1 || mostUsed($pass)){
             echo '<body style="background-color:darkred">';
-            echo "<p>Contraseña muy fácil</p>";
+            echo "<p>Contraseña muy fácil <br>".floor(getTime($pass)/60)." segundos </p>";
             if(mostUsed($pass)===true){
                 echo "<p>Esta contraseña está en el top 10</p>";
             }
@@ -41,18 +41,18 @@
             //menos de 1 mes
         }elseif (getTime($pass)<=2.628e+6){
             echo '<body style="background-color:orange">';
-            echo "<p>Contraseña media</p>";
+            echo "<p>Contraseña media<br>". intval(((getTime($pass)/60)/60)/24)." dias ".intval(getTime($pass)/60)."min </p>";
 
             //mas de 1 mes menos de 1 año
         }elseif (getTime($pass)>2.628e+6 && getTime($pass)<=3.154e+9){
             echo '<body style="background-color:cornflowerblue">';
-            echo "<p>Contraseña difícil</p>";
+            echo "<p>Contraseña difícil<br>".intval((((getTime($pass)/60)/60)/24)/31)." meses </p>";
 
             //mas de 1 año
         }else{
             //verde
             echo '<body style="background-color:forestgreen">';
-            echo "<p>Constraseña muy difícil </p>";
+            echo "<p>Constraseña muy difícil <br>".intval(((((getTime($pass)/60)/60)/24)/31)/12)." años ".intval((((getTime($pass)/60)/60)/24)/31)." meses  </p>";
         }
 
     }

@@ -9,7 +9,6 @@ function getSortedElephantsByNumber($elephants){
     // number  name species
 
     //Bucle for que recorre  $elephants y compara las rows
-
     for($fila=0;$fila<count($elephants)-1;$fila++){
 
         for($fila2=$fila+1;$fila2<count($elephants);$fila2++){
