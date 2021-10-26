@@ -15,7 +15,7 @@ class characters
 
 
     //Constructor
-    public function __construct($id,$name,$status,$species,$type,$gender,$origin,$location,$image,$episodes)
+    public function __construct($id,$name,$status,$species,$type,$gender,$origin,$location,$image,array $episodes)
     {
         $this->id=$id;
         $this->name=$name;
@@ -66,126 +66,89 @@ class characters
         $this->status = $status;
     }
 
-    /**
-     * @return mixed
-     */
+
+    //SPECIES
     public function getSpecies()
     {
         return $this->species;
     }
 
-    /**
-     * @param mixed $species
-     */
     public function setSpecies($species)
     {
         $this->species = $species;
     }
 
-    /**
-     * @return mixed
-     */
+
+    //TYPE
     public function getType()
     {
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     */
     public function setType($type)
     {
         $this->type = $type;
     }
 
-    /**
-     * @return mixed
-     */
+
+    //GENDER
     public function getGender()
     {
         return $this->gender;
     }
 
-    /**
-     * @param mixed $gender
-     */
     public function setGender($gender)
     {
         $this->gender = $gender;
     }
 
-    /**
-     * @return mixed
-     */
+
+    //ORIGIN
     public function getOrigin()
     {
         return $this->origin;
     }
 
-    /**
-     * @param mixed $origin
-     */
     public function setOrigin($origin)
     {
         $this->origin = $origin;
     }
 
-    /**
-     * @return mixed
-     */
+
+    //LOCATIONS
     public function getLocation()
     {
         return $this->location;
     }
 
-    /**
-     * @param mixed $location
-     */
     public function setLocation($location)
     {
         $this->location = $location;
     }
 
-    /**
-     * @return mixed
-     */
+
+    //IMAGE
     public function getImage()
     {
         return $this->image;
     }
 
-    /**
-     * @param mixed $image
-     */
     public function setImage($image)
     {
         $this->image = $image;
     }
 
-    /**
-     * @return mixed
-     */
+
+    //EPISODES
     public function getEpisodes()
     {
         return $this->episodes;
     }
 
-    /**
-     * @param mixed $episodes
-     */
     public function setEpisodes($episodes)
     {
         $this->episodes = $episodes;
     }
 
 
-
-
-    //SPECIES
-    //TYPE
-    //GENDER
-    //ORIGIN
-    //LOCATION
-    //IMAGE
-    //EPISODES
 }

@@ -9,7 +9,7 @@ class locations
     private $created;
     private $residents;
 
-   //Constructor
+    //Constructor
     public function __construct($id,$name,$type,$dimension, $created,$residents)
     {
         $this->id = $id;
