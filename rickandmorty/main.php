@@ -128,23 +128,18 @@ function mapCharacters($personaje)
             for ($m = 0; $m < count($episodio); $m++) {
 
                 if ($personaje[$i]->getEpisodes()[$k] == intval($episodio[$m]->getId())) {
-                    // $personaje[$i]->setEpisodes($episodio[$m]->getName())[$k];
-
                     $epnames[$k] = $episodio[$m]->getName();
 
                 } elseif ($personaje[$i]->getEpisodes()[$k] == "0") {
-                    //$personaje[$i]->setEpisodes("Unknown")[$k];
-
                     $epnames[$k] = "unknown";
                 }
             }
         }
+        //primero se van guardando los valores dentro del array y luego se crea el objeto
         $personaje[$i]->setEpisodes($epnames);
     }
     return $personaje;
 }
-
-$mappedCharacters = mapCharacters($personaje);
 
 function render($character) {
 
@@ -202,6 +197,9 @@ if (isset($_GET["sortingCriteria"])) {
             break;
     }
 }
+
+//el mapeo tiene que ser despues del sorting para que se ordene
+$mappedCharacters = mapCharacters($personaje);
 
 
 ?>
