@@ -53,6 +53,7 @@ $personaje = createCharacters($characters);
 $episodio = createEpisodes($episodes);
 $ubicacion = createLocations($locations);
 
+
 function getSortedCharactersById($personaje)
 {
     for ($i = 0; $i < count($personaje) - 1; $i++) {
