@@ -11,11 +11,12 @@ class characters
     private $origin;
     private $location;
     private $image;
+    private $created;
     private $episodes;
 
 
     //Constructor
-    public function __construct($id,$name,$status,$species,$type,$gender,$origin,$location,$image,array $episodes)
+    public function __construct($id,$name,$status,$species,$type,$gender,$origin,$location,$image,$created,$episodes)
     {
         $this->id=$id;
         $this->name=$name;
@@ -26,6 +27,7 @@ class characters
         $this->origin=$origin;
         $this->location=$location;
         $this->image=$image;
+        $this->created=$created;
         $this->episodes=$episodes;
 
     }
@@ -136,6 +138,18 @@ class characters
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+
+    //CREATED
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
 
 
