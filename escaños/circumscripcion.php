@@ -2,7 +2,7 @@
 
 class circumscripcion
 {
-private $distrito;
-private $partido;
-private  $votos;
+private $id;
+private $name;
+private  $delegados;
 }
