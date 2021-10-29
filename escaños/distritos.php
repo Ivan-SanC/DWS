@@ -2,21 +2,30 @@
 
 class distritos
 {
+    private $id;
     private $name;
-    private $partido;
-    private $votos;
+    private $delegates;
 
-
-    public function __construct($name, $partido, $votos)
+    public function __construct($id,$name,$delegates)
     {
-        $this->name = $name;
-        $this->partido = $partido;
-        $this->votos = $votos;
+        $this->id=$id;
+        $this->name=$name;
+        $this->delegates=$delegates;
 
     }
 
 
-    //NAME
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
     public function setName($name)
     {
         $this->name = $name;
@@ -28,26 +37,14 @@ class distritos
     }
 
 
-    //PARTIDO
-    public function setPartido($partido)
+    public function setDelegates($delegates)
     {
-        $this->partido = $partido;
+        $this->delegates = $delegates;
     }
 
-    public function getPartido()
+    public function getDelegates()
     {
-        return $this->partido;
+        return $this->delegates;
     }
 
-
-    //VOTOS
-    public function setVotos($votos)
-    {
-        $this->votos = $votos;
-    }
-
-    public function getVotos()
-    {
-        return $this->votos;
-    }
 }
