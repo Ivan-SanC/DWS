@@ -2,30 +2,31 @@
 
 class resultados
 {
-    private $name;
+    private $distrito;
     private $partido;
     private $votos;
+    private $escanyos;
 
 
 
-    public function __construct($name, $partido, $votos)
+    public function __construct($distrito, $partido, $votos, $escanyos)
     {
-        $this->name = $name;
+        $this->distrito = $distrito;
         $this->partido = $partido;
         $this->votos = $votos;
-
+        $this->escanyos=$escanyos;
     }
 
 
     //NAME
-    public function setName($name)
+    public function setDistrito($distrito)
     {
-        $this->name = $name;
+        $this->$distrito = $distrito;
     }
 
-    public function getName()
+    public function getDistrito()
     {
-        return $this->name;
+        return $this->distrito;
     }
 
 
@@ -50,5 +51,15 @@ class resultados
     public function getVotos()
     {
         return $this->votos;
+    }
+
+    //ESCANYOS
+    public function setEscanyos($escanyos){
+        $this->escanyos=$escanyos;
+    }
+
+    public function getEscanyos()
+    {
+        return $this->escanyos;
     }
 }
