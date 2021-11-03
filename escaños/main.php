@@ -38,6 +38,7 @@ function createDistritos($distritosJson)
 //Funcion Objeto Resultado
 function createResultado($resultsJson)
 {
+
     $objResultados = array();
     foreach ($resultsJson as $result) {
         $objResultado = new resultados($result["district"], $result["party"], $result["votes"],0);
@@ -50,40 +51,70 @@ function createResultado($resultsJson)
 $partidos= createPartidos($partidosJson);
 $distritos= createDistritos($distritosJson);
 $results=createResultado($resultsJson);
-$x=1;
+
 echo "<pre>";
 //var_dump($partidos);
 //var_dump($distritos);
 //var_dump($results);
 
 //Calcula Escaños
-function calculaEscanyos($results){
+
+//Calcula Escaños
+function calculaEscanyos($results)
+{
     global $distritos;
+    $aZonas=array();
+    $aOriginal=array();
+    $votosTotales=0;
 
-    $votosTotales= 0;
-    $aZonas= array();
+
+    //entra en distritos
+    for ($i = 0; $i < count($distritos); $i++) {
 
 
-    for ($i=0;$i<count($distritos);$i++){
+        //recorre resultados
+        for ($k = 0; $k < count($results); $k++) {
 
-        //guarda los votos tototales del disitrito
-        for($j=0;$j<count($results);$j++){
-            if($distritos[$i]->getName()==$results[$j]->getDistrito()){
-                $votosTotales=$results[$j]->getVotos()+$votosTotales;
-                //guarda los datos en el array para buscarlos
-                $aZonas[]=[$results[$j]->getDistrito(), $results[$j]->getPartido(),$results[$j]->getVotos()];
+            //si el distrito coincide con el distristo del resultado
+            if ($distritos[$i]->getName() == $results[$k]->getDistrito()) {
+                //guarda los votos totales;
+                $votosTotales=$results[$k]->getVotos()+$votosTotales;
+                //se guarda en el array solo los objetos con el mismo distrito
+                $aOriginal[]=[$results[$k]->getDistrito(), $results[$k]->getPartido(), $results[$k]->getVotos(), $results[$k]->getEscanyos()];
             }
         }
-        //Calcula los escaños de cada partido en las zonas (sigue en el primer bucle)
-        //la idea es que el aZonas reparta los escaños y se guarden el results
-        for($m=0;$m<count($distritos[$i]->getDelegates());$m++){
 
+        //Se crea un segundo array sin el 3% de votos
+        for($j=0;$j<count($aOriginal);$j++){
+            if ($aOriginal[0][2] > ($votosTotales * 0.03)) {
+                $aZonas[] = [$results[$k]->getDistrito(), $results[$k]->getPartido(), $results[$k]->getVotos(), $results[$k]->getEscanyos()];
+            }
         }
 
 
+        //busca los escaños totales del distrito
+        for ($m = 0; $m < intval($distritos[$i]->getDelegates()); $m++) {
+
+            //ordena el array creado
+                for ($l = 0; $l < count($aZonas); $l++) {
+                    for ($f = $l + 1; $f < count($aZonas); $f++) {
+                        if ($aZonas[$l][2] < $aZonas[$f][2]) {
+                            $aux = $aZonas[$l];
+                            $aZonas[$l] = $aZonas[$f];
+                            $aZonas[$f] = $aux;
+                        }
+                    }
+
+                }
+
+                    $aZonas[0][3] += 1;
+                    $aZonas[0][2] = $aZonas[0][2] / $aZonas[0][3];
+
+
+        }
     }
 
-    return $results;
+    return $aZonas;
 }
 
 
