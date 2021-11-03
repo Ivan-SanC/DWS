@@ -78,7 +78,7 @@ function calculaEscanyos($results)
             //si el distrito coincide con el distristo del resultado
             if ($distritos[$i]->getName() == $results[$k]->getDistrito()) {
                 //guarda los votos totales;
-                $votosTotales=$results[$k]->getVotos()+$votosTotales;
+                $votosTotales=intval($results[$k]->getVotos())+$votosTotales;
                 //se guarda en el array solo los objetos con el mismo distrito
                 $aOriginal[]=[$results[$k]->getDistrito(), $results[$k]->getPartido(), $results[$k]->getVotos(), $results[$k]->getEscanyos()];
             }
@@ -86,8 +86,8 @@ function calculaEscanyos($results)
 
         //Se crea un segundo array sin el 3% de votos
         for($j=0;$j<count($aOriginal);$j++){
-            if ($aOriginal[0][2] > ($votosTotales * 0.03)) {
-                $aZonas[] = [$results[$k]->getDistrito(), $results[$k]->getPartido(), $results[$k]->getVotos(), $results[$k]->getEscanyos()];
+            if ($aOriginal[$j][2] >=$votosTotales*0.03) {
+                $aZonas[] =$aOriginal[$j];
             }
         }
 
