@@ -6,14 +6,18 @@ class partidos
     private $name;
     private $acronimo;
     private $logo;
+    private $votos;
+    private $escanyos;
 
 
-    public function __construct($id, $name, $acronimo, $logo)
+    public function __construct($id, $name, $acronimo, $logo, $votos, $escanyos)
     {
         $this->id = $id;
         $this->name = $name;
         $this->acronimo = $acronimo;
         $this->logo = $logo;
+        $this->votos=$votos;
+        $this->escanyos=$escanyos;
     }
 
     //ID
@@ -61,5 +65,30 @@ class partidos
     public function getLogo()
     {
         return $this->logo;
+    }
+
+
+    //VOTOS
+    public function setVotos($votos)
+    {
+        $this->votos = $votos;
+    }
+
+
+    public function getVotos()
+    {
+        return $this->votos;
+    }
+
+
+    //ESCAÑOS
+    public function setEscanyos($escanyos)
+    {
+        $this->escanyos = $escanyos;
+    }
+
+    public function getEscanyos()
+    {
+        return $this->escanyos;
     }
 }

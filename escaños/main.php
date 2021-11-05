@@ -16,7 +16,7 @@ function createPartidos($partidosJson)
 {
     $objPartidos = array();
     foreach ($partidosJson as $partido) {
-        $objPartido = new partidos($partido["id"], $partido["name"], $partido["acronym"], $partido["logo"]);
+        $objPartido = new partidos($partido["id"], $partido["name"], $partido["acronym"], $partido["logo"], 0, 0);
         $objPartidos[] = $objPartido;
     }
     return $objPartidos;
@@ -110,7 +110,7 @@ function calculaEscanyos($results)
             for ($a = 0; $a < count($aOriginal); $a++) {
                 if ($aZonas[0][0] == $aOriginal[$a][0] && $aZonas[0][1] == $aOriginal[$a][1]) {
                     $aZonas[0][3] += 1;
-                    $aZonas[0][2] = intval($aOriginal[$a][2] / $aZonas[0][3]);
+                    $aZonas[0][2] = $aOriginal[$a][2] / $aZonas[0][3];
                 }
 
             }
@@ -132,15 +132,38 @@ function calculaEscanyos($results)
 //var_dump(calculaEscanyos($results));
 $reparte = calculaEscanyos($results);
 
-//Hacer todas las opciones y mirar como enlazar solo en un form
+
 //Funcion Ordenar Partido
-//zonas --partidoEspecifico --votos --escañosZona
+//general --partidoEspecifico --votos --escañosZona
+function sortGeneral($partidos)
+{
+    global $reparte;
 
+    //Entra en partidos
+    for ($i = 0; $i < count($partidos); $i++) {
 
-//Funcion Ordenaro Escaños totales
-//general --partidos --votosTotales --escañosTotales
+        //Entra en la funcion calculaEscanyos
+        for ($j = 0; $j < count($reparte); $j++) {
+
+            //Compara que los partidos sean iguales
+            if ($partidos[$i]->getName() == $reparte[$j]->getPartido()) {
+
+                //Suma votos y escaños
+                $partidos[$i]->setVotos($partidos[$i]->getVotos() + $reparte[$j]->getVotos());
+                $partidos[$i]->setEscanyos($partidos[$i]->getEscanyos() + $reparte[$j]->getEscanyos());
+            }
+        }
+    }
+
+    return $partidos;
+}
+
+//var_dump(sortGeneral($partidos));
+$generales = sortGeneral($partidos);
 
 ?>
+
+
 <html lang="es">
 <head>
     <title>Election Results</title>
@@ -151,11 +174,24 @@ $reparte = calculaEscanyos($results);
             crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        table, th, td {
-            border: 1px solid black;
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th {
+            border-bottom: 3px solid black;
+            text-align: left;
             padding-left: 12px;
             padding-right: 12px;
         }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
     </style>
 </head>
 <body>
@@ -164,7 +200,7 @@ $reparte = calculaEscanyos($results);
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex" action="main.php" method="post">
                 <select class="form-control me-2 form-select" name="district">
-                    <option selected value='vacio'>Selecciona una circumscripción</option>
+                    <option value='circum'>Selecciona una circumscripción</option>
                     <option value='generales'>Resultados Generales</option>
                     <?php
                     for ($i = 0; $i < count($distritos); $i++) {
@@ -174,7 +210,7 @@ $reparte = calculaEscanyos($results);
                     ?>
                 </select>
                 <select class="form-control me-2 form-select" name="party">
-                    <option selected value='vacio'>Selecciona un partido</option>
+                    <option value='vacio'>Selecciona un partido</option>
                     <?php
                     for ($i = 0; $i < count($partidos); $i++) {
                         echo "<option value='" . $partidos[$i]->getName() . "'>" . $partidos[$i]->getName() . "</option>";
@@ -182,6 +218,7 @@ $reparte = calculaEscanyos($results);
 
                     ?>
                 </select>
+
                 <button class="btn btn-outline-success" type="submit">Filtra</button>
             </form>
         </div>
@@ -190,38 +227,58 @@ $reparte = calculaEscanyos($results);
 <table>
     <?php
 
-    //Funcion Ordenar provincia
-    //zonaEspecifica --partidos --votos --escañosZona
-    if (isset($_POST["district"])) {
-        $district = $_POST["district"];
-        if ($district != "vacio") {
+    if (isset($_POST["party"]));
+    $party = ($_POST["party"]);
+
+    if(isset($_POST["district"])){
+        $district = ($_POST["district"]);
+        //Distritos
+        if ($district != "circum" && $district != "generales") {
 
             echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
             for ($i = 0; $i < count($reparte); $i++) {
-                if ($district == $reparte[$i]->getDistrito()) {
-                    echo "<tr><td>" . $reparte[$i]->getDistrito() . "</td><td>" . $reparte[$i]->getPartido() . "</td><td>" .
-                        $results[$i]->getVotos() . "</td><td>" . $reparte[$i]->getEscanyos() . "</td></tr>";
+                for ($j = 0; $j < count($partidos); $j++) {
+                    if ($district == $reparte[$i]->getDistrito() && $reparte[$i]->getPartido() == $partidos[$j]->getName()) {
+                        echo "<tr><td>" . $reparte[$i]->getDistrito() . "</td><td><img alt='logo' height='25px' src='" . $partidos[$j]->getLogo() . "'> <strong>" . $partidos[$j]->getAcronimo() . "</strong> - " . $reparte[$i]->getPartido() . "</td><td>" .
+                            $results[$i]->getVotos() . "</td><td>" . $reparte[$i]->getEscanyos() . "</td></tr>";
 
-
+                    }
                 }
             }
-        }
-    }
-    if (isset($_POST["party"])) {
-        $party = $_POST["party"];
-        if ($party != "vacio") {
+
+            //Generales
+        } elseif ($district == "generales") {
 
             echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
-            for ($i = 0; $i < count($reparte); $i++) {
-                if ($party == $reparte[$i]->getDistrito()) {
-                    echo "<tr><td>" . $reparte[$i]->getDistrito() . "</td><td>" . $reparte[$i]->getPartido() . "</td><td>" .
-                        $results[$i]->getVotos() . "</td><td>" . $reparte[$i]->getEscanyos() . "</td></tr>";
+            for ($i = 0; $i < count($generales); $i++) {
+                echo "<tr><td>Generales</td><td><img alt='logo' height='25px' src='" . $generales[$i]->getLogo() . "'> <strong>" . $generales[$i]->getAcronimo() . "</strong> - " . $generales[$i]->getName() . "</td><td>" .
+                    $generales[$i]->getVotos() . "</td><td>" . $generales[$i]->getEscanyos() . "</td></tr>";
 
-
-                }
             }
+
         }
     }
+
+    //Partidos
+    if($district == "circum"){
+
+
+            if ($party != "vacio") {
+
+                echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
+                for ($i = 0; $i < count($reparte); $i++) {
+                    for ($j = 0; $j < count($partidos); $j++) {
+                        if ($party == $reparte[$i]->getPartido() && $party == $partidos[$j]->getName()) {
+                            echo "<tr><td>" . $reparte[$i]->getDistrito() . "</td><td><img alt='logo' height='25px' src='" . $partidos[$j]->getLogo() . "'> <strong>" . $partidos[$j]->getAcronimo() . "</strong> - " . $reparte[$i]->getPartido() . "</td><td>" .
+                                $results[$i]->getVotos() . "</td><td>" . $reparte[$i]->getEscanyos() . "</td></tr>";
+
+                        }
+                    }
+                }
+            }
+
+    }
+
     ?>
 </table>
 </body>
