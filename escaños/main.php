@@ -52,12 +52,11 @@ $partidos = createPartidos($partidosJson);
 $distritos = createDistritos($distritosJson);
 $results = createResultado($resultsJson);
 
-echo "<pre>";
+//echo "<pre>";
 //var_dump($partidos);
 //var_dump($distritos);
 //var_dump($results);
 
-//Calcula Escaños
 
 //Calcula Escaños
 function calculaEscanyos($results)
