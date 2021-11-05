@@ -227,11 +227,9 @@ $generales = sortGeneral($partidos);
 <table>
     <?php
 
-    if (isset($_POST["party"]));
-    $party = ($_POST["party"]);
-
-    if(isset($_POST["district"])){
+    if (isset($_POST["district"])) {
         $district = ($_POST["district"]);
+
         //Distritos
         if ($district != "circum" && $district != "generales") {
 
@@ -260,8 +258,10 @@ $generales = sortGeneral($partidos);
     }
 
     //Partidos
-    if($district == "circum"){
+    if ($district == "circum") {
 
+        if (isset($_POST["party"])) {
+            $party = ($_POST["party"]);
 
             if ($party != "vacio") {
 
@@ -276,6 +276,8 @@ $generales = sortGeneral($partidos);
                     }
                 }
             }
+        }
+
 
     }
 
