@@ -194,7 +194,7 @@ $generales = sortGeneral($partidos);
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex" action="main.php" method="post">
@@ -225,6 +225,7 @@ $generales = sortGeneral($partidos);
 </nav>
 <table>
     <?php
+    echo "<br><br><br>";
 
     if (isset($_POST["district"])) {
         $district = ($_POST["district"]);
