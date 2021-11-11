@@ -22,10 +22,20 @@ $conn = new mysqli($servername, $username, $password);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully";
+echo "Connected successfully ";
 
 
+$sql = "CREATE DATABASE IF NOT EXISTS db_partidos;";
+$sql .= "CREATE DATABASE IF NOT EXISTS db_distritos;";
+$sql .="CREATE DATABASE IF NOT EXISTS db_results;";
 
+if ($conn->multi_query($sql) === TRUE) {
+    echo "Databases created successfully ";
+} else {
+    echo "Error creating database: " . $conn->error;
+}
+
+$conn->close();
 //Objetos
 //Funcion Objeto Partidos
 function createPartidos($partidosJson)
