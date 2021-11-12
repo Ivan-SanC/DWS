@@ -10,40 +10,34 @@ include "partidos.php";
 include "distritos.php";
 include "resultados.php";
 
-//Mysql
-$servername = "localhost";
-$username = "root";
-$password = "Pascal.69";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-echo "Connected successfully ";
-
-
-$sql = "CREATE DATABASE IF NOT EXISTS db_partidos;";
-$sql .= "CREATE DATABASE IF NOT EXISTS db_distritos;";
-$sql .="CREATE DATABASE IF NOT EXISTS db_results;";
-
-if ($conn->multi_query($sql) === TRUE) {
-    echo "Databases created successfully ";
-} else {
-    echo "Error creating database: " . $conn->error;
-}
-
-$conn->close();
 //Objetos
 //Funcion Objeto Partidos
-function createPartidos($partidosJson)
+function createPartidos()
 {
     $objPartidos = array();
-    foreach ($partidosJson as $partido) {
-        $objPartido = new partidos($partido["id"], $partido["name"], $partido["acronym"], $partido["logo"], 0, 0);
-        $objPartidos[] = $objPartido;
+    $servername = "localhost";
+    $username = "username";
+    $password = "password";
+    $dbname = "myDB";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $objPartidos=new partidos($row["id"],$row["name"],$row["lastname"]);
+  }
+}
+$conn->close();
     }
     return $objPartidos;
 }
