@@ -1,76 +1,85 @@
 <?php
-
-$api_url = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=";
-
-$partidosJson = json_decode(file_get_contents($api_url . "parties"), true);
-$distritosJson = json_decode(file_get_contents($api_url . "districts"), true);
-$resultsJson = json_decode(file_get_contents($api_url . "results"), true);
-
 include "partidos.php";
 include "distritos.php";
 include "resultados.php";
 
 
-//Objetos
-//Funcion Objeto Partidos
-function createPartidos()
-{
-    $objPartidos = array();
-    $servername = "localhost";
-    $username = "username";
-    $password = "password";
-    $dbname = "myDB";
+//Mysql
+$servername = "localhost";
+$username = "root";
+$password = "Pascal.69";
+$dbname = "db_elections";
+
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password,$dbname);
 // Check connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT id, firstname, lastname FROM MyGuests";
-$result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    $objPartidos=new partidos($row["id"],$row["name"],$row["lastname"]);
-  }
-}
-$conn->close();
+//Objetos
+//Funcion Objeto Partidos
+function createPartidos($conn)
+{
+    $objPartidos = array();
+    $sql = "SELECT idPartidos, namePartidos, acronPartidos,logoPartidos FROM table_partidos";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $objPartidos[] = new partidos($row["idPartidos"], $row["namePartidos"], $row["acronPartidos"], $row["logoPartidos"],0,0);
+
+        }
     }
     return $objPartidos;
 }
 
 
 //Funcion Objeto Distrito
-function createDistritos($distritosJson)
+function createDistritos($conn)
 {
     $objDistritos = array();
-    foreach ($distritosJson as $distrito) {
-        $objDistrito = new distritos($distrito["id"], $distrito["name"], $distrito["delegates"]);
-        $objDistritos[] = $objDistrito;
+    $sql = "SELECT idDistritos, nameDistritos, delegatesDistritos FROM table_distritos";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $objDistritos[] = new distritos($row["idDistritos"], $row["nameDistritos"], $row["delegatesDistritos"]);
+
+        }
     }
     return $objDistritos;
 }
 
 
 //Funcion Objeto Resultado
-function createResultado($resultsJson)
+function createResultado($conn)
 {
 
     $objResultados = array();
-    foreach ($resultsJson as $result) {
-        $objResultado = new resultados($result["district"], $result["party"], $result["votes"], 0);
-        $objResultados[] = $objResultado;
+    $sql = "SELECT idResults, districtsResults, partyResults,votesResults FROM table_resultados";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
+            $objResultados[] = new resultados($row["districtsResults"], $row["partyResults"], $row["votesResults"],0);
+
+        }
     }
     return $objResultados;
 }
 
 
-$partidos = createPartidos($partidosJson);
-$distritos = createDistritos($distritosJson);
-$results = createResultado($resultsJson);
+
+$partidos = createPartidos($conn);
+$distritos = createDistritos($conn);
+$results = createResultado($conn);
+$conn->close();
 
 //echo "<pre>";
 //var_dump($partidos);
@@ -129,7 +138,7 @@ function calculaEscanyos($results)
             for ($a = 0; $a < count($aOriginal); $a++) {
                 if ($aZonas[0][0] == $aOriginal[$a][0] && $aZonas[0][1] == $aOriginal[$a][1]) {
                     $aZonas[0][3] += 1;
-                    $aZonas[0][2] = $aOriginal[$a][2] / ($aZonas[0][3]+1);
+                    $aZonas[0][2] = $aOriginal[$a][2] / ($aZonas[0][3] + 1);
                 }
 
             }
@@ -214,12 +223,12 @@ $generales = sortGeneral($partidos);
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex" action="main.php" method="post">
                 <select class="form-control me-2 form-select" name="district">
-                    <option value='circum'>Selecciona una circumscripción</option>
+                    <option value='vacio'>Selecciona una circumscripción</option>
                     <option value='generales'>Resultados Generales</option>
                     <?php
                     for ($i = 0; $i < count($distritos); $i++) {
@@ -237,7 +246,6 @@ $generales = sortGeneral($partidos);
 
                     ?>
                 </select>
-
                 <button class="btn btn-outline-success" type="submit">Filtra</button>
             </form>
         </div>
@@ -248,10 +256,10 @@ $generales = sortGeneral($partidos);
     echo "<br><br><br>";
 
     if (isset($_POST["district"])) {
-        $district = ($_POST["district"]);
+        $district = $_POST["district"];
 
         //Distritos
-        if ($district != "circum" && $district != "generales") {
+        if ($district != "vacio" && $district != "generales") {
 
             echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
             for ($i = 0; $i < count($reparte); $i++) {
@@ -276,31 +284,23 @@ $generales = sortGeneral($partidos);
 
         }
     }
-
     //Partidos
-    if ($district == "circum") {
+    if (isset($_POST["party"])) {
+        $party = $_POST["party"];
+        if ($party != "vacio") {
 
-        if (isset($_POST["party"])) {
-            $party = ($_POST["party"]);
+            echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
+            for ($i = 0; $i < count($reparte); $i++) {
+                for ($j = 0; $j < count($partidos); $j++) {
+                    if ($party == $reparte[$i]->getPartido() && $party == $partidos[$j]->getName()) {
+                        echo "<tr><td>" . $reparte[$i]->getDistrito() . "</td><td><img alt='logo' height='25px' src='" . $partidos[$j]->getLogo() . "'> <strong>" . $partidos[$j]->getAcronimo() . "</strong> - " . $reparte[$i]->getPartido() . "</td><td>" .
+                            $results[$i]->getVotos() . "</td><td>" . $reparte[$i]->getEscanyos() . "</td></tr>";
 
-            if ($party != "vacio") {
-
-                echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
-                for ($i = 0; $i < count($reparte); $i++) {
-                    for ($j = 0; $j < count($partidos); $j++) {
-                        if ($party == $reparte[$i]->getPartido() && $party == $partidos[$j]->getName()) {
-                            echo "<tr><td>" . $reparte[$i]->getDistrito() . "</td><td><img alt='logo' height='25px' src='" . $partidos[$j]->getLogo() . "'> <strong>" . $partidos[$j]->getAcronimo() . "</strong> - " . $reparte[$i]->getPartido() . "</td><td>" .
-                                $results[$i]->getVotos() . "</td><td>" . $reparte[$i]->getEscanyos() . "</td></tr>";
-
-                        }
                     }
                 }
             }
         }
-
-
     }
-
     ?>
 </table>
 </body>

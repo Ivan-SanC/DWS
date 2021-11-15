@@ -1,36 +1,32 @@
+<?php
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=";
 
 $partidosJson = json_decode(file_get_contents($api_url . "parties"), true);
 $distritosJson = json_decode(file_get_contents($api_url . "districts"), true);
 $resultsJson = json_decode(file_get_contents($api_url . "results"), true);
 
-include "partidos.php";
-include "distritos.php";
-include "resultados.php";
-
-PASOS PARA ESTABLECER UNA CONEXION
-CREAR UNA DB E INSERTAR DATOS EN LA DB
+//PASOS PARA ESTABLECER UNA CONEXION
+//CREAR UNA DB E INSERTAR DATOS EN LA DB
 
 //Mysql
 $servername = "localhost";
 $username = "root";
-$password = "Pascal.69";
+$password = "admin";
 $dbname="db_elections";
 
 
 // Create connection
-/*
+
 $conn = new mysqli($servername, $username, $password);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo "Connected successfully <br>";
-*/
+
 
 
 //Create DB
-/*
 $sql = "CREATE DATABASE IF NOT EXISTS db_elections;";
 if ($conn->query($sql) === TRUE) {
     echo "Databases created successfully <br>";
@@ -38,7 +34,7 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating database: " . $conn->error;
 }
 $conn->close();
-*/
+
 
 // Create connection con db
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -49,8 +45,8 @@ if ($conn->connect_error) {
 echo "Connected successfully <br>";
 
 //Insert Partidos
-/*foreach ($partidosJson as $partidoJson){
-    $sql = 'INSERT INTO partidos (idPartidos, namePartidos, acronPartidos,logoPartidos)
+foreach ($partidosJson as $partidoJson){
+    $sql = 'INSERT INTO table_partidos (idPartidos, namePartidos, acronPartidos,logoPartidos)
 VALUES ("'.$conn->real_escape_string($partidoJson["id"]).'",
         "'.$conn->real_escape_string($partidoJson["name"]).'",
         "'.$conn->real_escape_string($partidoJson["acronym"]).'",
@@ -61,11 +57,11 @@ VALUES ("'.$conn->real_escape_string($partidoJson["id"]).'",
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-}*/
+}
 
 //Insert Distritos
-/*foreach ($resultsJson as $resultJson){
-    $sql = 'INSERT INTO resultados (districtsResults, partyResults,votesResults)
+foreach ($resultsJson as $resultJson){
+    $sql = 'INSERT INTO table_resultados (districtsResults, partyResults,votesResults)
 VALUES ("'.$conn->real_escape_string($resultJson["district"]).'",
         "'.$conn->real_escape_string($resultJson["party"]).'",
         "'.$conn->real_escape_string($resultJson["votes"]).'")';
@@ -75,11 +71,11 @@ VALUES ("'.$conn->real_escape_string($resultJson["district"]).'",
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-}*/
+}
 
 //Insert Resultados
-/*foreach ($distritosJson as $distritoJson){
-    $sql = 'INSERT INTO distritos (idDistritos, nameDistritos, delegatesDistritos)
+foreach ($distritosJson as $distritoJson){
+    $sql = 'INSERT INTO table_distritos (idDistritos, nameDistritos, delegatesDistritos)
 VALUES ("'.$conn->real_escape_string($distritoJson["id"]).'",
         "'.$conn->real_escape_string($distritoJson["name"]).'",
         "'.$conn->real_escape_string($distritoJson["delegates"]).'")';
@@ -89,6 +85,6 @@ VALUES ("'.$conn->real_escape_string($distritoJson["id"]).'",
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-}*/
+}
 
 $conn->close();
