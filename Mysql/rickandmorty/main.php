@@ -15,7 +15,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection faile: " . $conn->connect_error);
 }
-echo "Connected succesfully <br>";
 
 
 function createCharacters($conn)
