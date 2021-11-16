@@ -4,13 +4,14 @@ include 'character.php';
 include 'episode.php';
 include 'location.php';
 
-$servername = "localhost";
-$name = "root";
-$pass = "admin";
-$dbname = "db_rick";
+//Mysql
+$servername = "sql480.main-hosting.eu";
+$username = "u850300514_isanchez";
+$password = "x43223947R";
+$dbname="u850300514_isanchez";
 
 //Creating connection with DB
-$conn = new mysqli($servername, $name, $pass, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection faile: " . $conn->connect_error);
 }

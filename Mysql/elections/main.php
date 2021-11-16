@@ -5,10 +5,10 @@ include "resultados.php";
 
 
 //Mysql
-$servername = "localhost";
-$username = "root";
-$password = "admin";
-$dbname = "db_elections";
+$servername = "sql480.main-hosting.eu";
+$username = "u850300514_isanchez";
+$password = "x43223947R";
+$dbname="u850300514_isanchez";
 
 
 // Create connection

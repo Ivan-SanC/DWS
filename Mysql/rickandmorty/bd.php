@@ -9,15 +9,16 @@ $episodesJson = json_decode(file_get_contents($api_url . "episodes"), true);
 $locationsJson = json_decode(file_get_contents($api_url . "locations"), true);
 
 
-$servername = "localhost";
-$name = "root";
-$pass = "admin";
-$dbname = "db_rick";
+//Mysql
+$servername = "sql480.main-hosting.eu";
+$username = "u850300514_isanchez";
+$password = "x43223947R";
+$dbname="u850300514_isanchez";
 
 
 //Connection
-/*
-$conn = new mysqli($servername, $name, $pass);
+
+$conn = new mysqli($servername, $username, $password);
 if ($conn->connect_error) {
     die("connection failed: " . $conn->connect_error);
 }
@@ -26,7 +27,7 @@ echo "Connected successfully <br>";
 
 //Create DB
 
-$sql = "CREATE DATABASE IF NOT EXISTS db_rick;";
+$sql = "CREATE DATABASE IF NOT EXISTS u850300514_isanchez;";
 if ($conn->query($sql) === TRUE) {
     echo "DB created successfully <br>";
 } else {
@@ -36,7 +37,7 @@ $conn->close();
 
 
 //Creating connection with DB
-$conn = new mysqli($servername, $name, $pass, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -100,10 +101,10 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 $conn->close();
-*/
 
 
-$conn = new mysqli($servername, $name, $pass, $dbname);
+
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
