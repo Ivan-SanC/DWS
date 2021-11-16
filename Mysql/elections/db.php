@@ -9,10 +9,10 @@ $resultsJson = json_decode(file_get_contents($api_url . "results"), true);
 //CREAR UNA DB E INSERTAR DATOS EN LA DB
 
 //Mysql
-$servername = "sql480.main-hosting.eu";
-$username = "u850300514_isanchez";
-$password = "x43223947R";
-$dbname="u850300514_isanchez";
+$servername = "localhost";
+$username = "root";
+$password = "admin";
+$dbname="db_elections";
 
 
 // Create connection
@@ -25,15 +25,15 @@ if ($conn->connect_error) {
 echo "Connected successfully <br>";
 
 
+
 //Create DB
-$sql = "CREATE DATABASE IF NOT EXISTS u850300514_isanchez;";
+$sql = "CREATE DATABASE IF NOT EXISTS db_elections;";
 if ($conn->query($sql) === TRUE) {
     echo "Databases created successfully <br>";
 } else {
     echo "Error creating database: " . $conn->error;
 }
 $conn->close();
-
 
 
 // Create connection con db
@@ -43,8 +43,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo "Connected successfully <br>";
-
-
 
 //Insert Partidos
 foreach ($partidosJson as $partidoJson){
@@ -61,7 +59,7 @@ VALUES ("'.$conn->real_escape_string($partidoJson["id"]).'",
     }
 }
 
-//Insert Distritos
+//Insert Resultados
 foreach ($resultsJson as $resultJson){
     $sql = 'INSERT INTO table_resultados (districtsResults, partyResults,votesResults)
 VALUES ("'.$conn->real_escape_string($resultJson["district"]).'",
@@ -75,7 +73,7 @@ VALUES ("'.$conn->real_escape_string($resultJson["district"]).'",
     }
 }
 
-//Insert Resultados
+//Insert Distritos
 foreach ($distritosJson as $distritoJson){
     $sql = 'INSERT INTO table_distritos (idDistritos, nameDistritos, delegatesDistritos)
 VALUES ("'.$conn->real_escape_string($distritoJson["id"]).'",

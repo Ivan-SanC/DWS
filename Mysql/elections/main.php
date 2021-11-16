@@ -5,14 +5,14 @@ include "resultados.php";
 
 
 //Mysql
-$servername = "sql480.main-hosting.eu";
-$username = "u850300514_isanchez";
-$password = "x43223947R";
-$dbname = "u850300514_isanchez";
+$servername = "localhost";
+$username = "root";
+$password = "admin";
+$dbname = "db_elections";
 
 
 // Create connection
-$conn = new mysqli($servername, $username, $password,$dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -30,7 +30,7 @@ function createPartidos($conn)
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            $objPartidos[] = new partidos($row["idPartidos"], $row["namePartidos"], $row["acronPartidos"], $row["logoPartidos"],0,0);
+            $objPartidos[] = new partidos($row["idPartidos"], $row["namePartidos"], $row["acronPartidos"], $row["logoPartidos"], 0, 0);
 
         }
     }
@@ -67,13 +67,12 @@ function createResultado($conn)
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
-            $objResultados[] = new resultados($row["districtsResults"], $row["partyResults"], $row["votesResults"],0);
+            $objResultados[] = new resultados($row["districtsResults"], $row["partyResults"], $row["votesResults"], 0);
 
         }
     }
     return $objResultados;
 }
-
 
 
 $partidos = createPartidos($conn);
@@ -190,8 +189,6 @@ function sortGeneral($partidos)
 $generales = sortGeneral($partidos);
 
 ?>
-
-
 <html lang="es">
 <head>
     <title>Election Results</title>
@@ -223,12 +220,12 @@ $generales = sortGeneral($partidos);
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex" action="main.php" method="post">
                 <select class="form-control me-2 form-select" name="district">
-                    <option value='vacio'>Selecciona una circumscripción</option>
+                    <option value='circum'>Selecciona una circumscripción</option>
                     <option value='generales'>Resultados Generales</option>
                     <?php
                     for ($i = 0; $i < count($distritos); $i++) {
@@ -246,6 +243,7 @@ $generales = sortGeneral($partidos);
 
                     ?>
                 </select>
+
                 <button class="btn btn-outline-success" type="submit">Filtra</button>
             </form>
         </div>
@@ -254,12 +252,13 @@ $generales = sortGeneral($partidos);
 <table>
     <?php
     echo "<br><br><br>";
+    $district=array();
 
     if (isset($_POST["district"])) {
-        $district = $_POST["district"];
+        $district = ($_POST["district"]);
 
         //Distritos
-        if ($district != "vacio" && $district != "generales") {
+        if ($district != "circum" && $district != "generales") {
 
             echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
             for ($i = 0; $i < count($reparte); $i++) {
@@ -284,23 +283,31 @@ $generales = sortGeneral($partidos);
 
         }
     }
+
     //Partidos
-    if (isset($_POST["party"])) {
-        $party = $_POST["party"];
-        if ($party != "vacio") {
+    if ($district == "circum") {
 
-            echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
-            for ($i = 0; $i < count($reparte); $i++) {
-                for ($j = 0; $j < count($partidos); $j++) {
-                    if ($party == $reparte[$i]->getPartido() && $party == $partidos[$j]->getName()) {
-                        echo "<tr><td>" . $reparte[$i]->getDistrito() . "</td><td><img alt='logo' height='25px' src='" . $partidos[$j]->getLogo() . "'> <strong>" . $partidos[$j]->getAcronimo() . "</strong> - " . $reparte[$i]->getPartido() . "</td><td>" .
-                            $results[$i]->getVotos() . "</td><td>" . $reparte[$i]->getEscanyos() . "</td></tr>";
+        if (isset($_POST["party"])) {
+            $party = ($_POST["party"]);
 
+            if ($party != "vacio") {
+
+                echo "<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>";
+                for ($i = 0; $i < count($reparte); $i++) {
+                    for ($j = 0; $j < count($partidos); $j++) {
+                        if ($party == $reparte[$i]->getPartido() && $party == $partidos[$j]->getName()) {
+                            echo "<tr><td>" . $reparte[$i]->getDistrito() . "</td><td><img alt='logo' height='25px' src='" . $partidos[$j]->getLogo() . "'> <strong>" . $partidos[$j]->getAcronimo() . "</strong> - " . $reparte[$i]->getPartido() . "</td><td>" .
+                                $results[$i]->getVotos() . "</td><td>" . $reparte[$i]->getEscanyos() . "</td></tr>";
+
+                        }
                     }
                 }
             }
         }
+
+
     }
+
     ?>
 </table>
 </body>

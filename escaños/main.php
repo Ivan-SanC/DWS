@@ -109,7 +109,7 @@ function calculaEscanyos($results)
             for ($a = 0; $a < count($aOriginal); $a++) {
                 if ($aZonas[0][0] == $aOriginal[$a][0] && $aZonas[0][1] == $aOriginal[$a][1]) {
                     $aZonas[0][3] += 1;
-                    $aZonas[0][2] = $aOriginal[$a][2] / $aZonas[0][3];
+                    $aZonas[0][2] = $aOriginal[$a][2] / ($aZonas[0][3]+1);
                 }
 
             }
