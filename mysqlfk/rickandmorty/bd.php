@@ -116,8 +116,8 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 $conn->close();
-*/
 
+*/
 
 $conn = new mysqli($servername, $name, $pass, $dbname);
 if ($conn->connect_error) {
@@ -126,7 +126,7 @@ if ($conn->connect_error) {
 echo "Connected successfully <br>";
 
 //Insert Episodes
-
+/*
 foreach ($episodesJson as $episodeJson) {
     $sql = 'INSERT INTO table_episodes (idEpi,nameEpi,airDateEpi,
                             episodeEpi,createdEpi,charactersEpi)
@@ -144,8 +144,8 @@ VALUES ("' . $conn->real_escape_string($episodeJson["id"]) . '",
     }
 }
 
-
-
+*/
+/*
 //Insert Characters
 foreach ($charactersJson as $characterJson) {
     $sql = 'INSERT INTO table_characters (idChar,nameChar,statusChar,speciesChar,
@@ -169,8 +169,8 @@ VALUES ("' . $conn->real_escape_string($characterJson["id"]) . '",
     }
 }
 
-
-
+*/
+/*
 //Insert Locations
 foreach ($locationsJson as $locationJson) {
     $sql = 'INSERT INTO table_locations (idLoc,nameLoc,typeLoc,
@@ -188,12 +188,19 @@ VALUES ("' . $conn->real_escape_string($locationJson["id"]) . '",
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+*/
 
 //Insert charactersXepisodes
-foreach ($characterJson as $characterJ){
-    foreach ($episodesJson as $episodeJ)
-    $sql ='INSERT INTO table_charXepi (idChar, idEpi) VALUES ("'.$characterJ["id"].'","'.$episodeJ["id"].'")';
+foreach ($charactersJson as $characterJ){
+    foreach ($episodesJson as $episodeJ) {
+        $sql = 'INSERT INTO table_charXepi (idChar, idEpi) VALUES ("' . $characterJ["id"] . '","' . $episodeJ["id"] . '")';
 
+        if ($conn->query($sql) === TRUE) {
+            echo "New record created successfully <br>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
 }
 
 $conn->close();
