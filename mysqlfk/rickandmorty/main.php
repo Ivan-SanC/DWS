@@ -5,10 +5,10 @@ include 'episode.php';
 include 'location.php';
 
 //Mysql
-$servername = "sql480.main-hosting.eu";
-$username = "u850300514_isanchez";
-$password = "x43223947R";
-$dbname="u850300514_isanchez";
+$servername = "localhost";
+$username = "root";
+$password = "Pascal.69";
+$dbname = "db_rick";
 
 //Creating connection with DB
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -20,21 +20,49 @@ if ($conn->connect_error) {
 function createCharacters($conn)
 {
     $objCharacters = array();
-     $sql = "SELECT idChar,nameChar,statusChar,speciesChar,
+    $sql = "SELECT idChar,nameChar,statusChar,speciesChar,
     typeChar,genderChar,originChar,locationChar,imageChar,createdChar,episodesChar FROM table_characters";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         // output data of each row
         while ($row = $result->fetch_assoc()) {
+
             $objCharacters[] = new character($row["idChar"], $row["nameChar"], $row["statusChar"], $row["speciesChar"], $row["typeChar"],
-                $row["genderChar"],$row["originChar"],$row["locationChar"],$row["imageChar"],$row["createdChar"],json_decode($row["episodesChar"]));
+                $row["genderChar"],$row["originChar"],$row["locationChar"],$row["imageChar"],$row["createdChar"],0);
 
         }
     }
     return $objCharacters;
 }
 
+$personaje = createCharacters($conn);
+
+
+//Funcion que inserta los episodios en el character por fkey
+function insertCharEpisodes($conn){
+    global  $personaje;
+
+
+    for($i=0;$i<count($personaje);$i++){
+        $sql = "SELECT idChar,idEpi FROM table_charXepi";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while ($row = $result->fetch_assoc()) {
+
+                if($personaje[$i]->getID()==$row["idChar"]){
+                    $ep[]=$row["idEpi"];
+                    $personaje[$i]->setEpisodes($ep);
+                    $ep=array();
+                }
+            }
+        }
+
+    }
+    return $personaje;
+}
 
 
 function createEpisodes($conn)
@@ -71,12 +99,12 @@ function createLocations($conn)
     return $objLocations;
 }
 
-$personaje = createCharacters($conn);
+$personaje = insertCharEpisodes($conn);
 $episodio = createEpisodes($conn);
 $ubicacion = createLocations($conn);
 
 //echo "<pre>";
-//var_dump($ubicacion);
+//var_dump($personaje);
 
 
 function getSortedCharactersById($personaje)

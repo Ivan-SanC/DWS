@@ -102,8 +102,9 @@ if ($conn->query($sql) === TRUE) {
 $conn->close();
 
 //Characters And Episodes
-$sql = "CREATE TABLE IF NOT EXISTS table_charXepi(   
-    idChEp INT (200) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+//para crear esta tabla primero comentar las anteriores
+$sql = "CREATE TABLE IF NOT EXISTS table_charXepi(
+    idChEp int(10) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     idChar VARCHAR(200) NOT NULL,
     idEpi VARCHAR(200) NOT NULL,
     FOREIGN KEY (idChar) REFERENCES table_characters(idChar) ON  DELETE  CASCADE ON UPDATE  CASCADE ,
@@ -191,19 +192,27 @@ VALUES ("' . $conn->real_escape_string($locationJson["id"]) . '",
 */
 
 //Insert charactersXepisodes
-foreach ($charactersJson as $characterJ){
+//primero comentar los anteriores inserts
+foreach ($charactersJson as $characterJ) {
     foreach ($episodesJson as $episodeJ) {
-        $sql = 'INSERT INTO table_charXepi (idChar, idEpi) VALUES ("' . $characterJ["id"] . '","' . $episodeJ["id"] . '")';
+        for($i=0;$i<count($episodeJ["characters"]);$i++){
+            if ($characterJ["id"] == $episodeJ["characters"][$i]) {
 
-        if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully <br>";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+                $sql = 'INSERT INTO table_charXepi (idChar, idEpi) VALUES ("' . $characterJ["id"] . '","' . $episodeJ["id"] . '")';
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "New record created successfully <br>";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
         }
+
     }
 }
 
 $conn->close();
+
 
 
 
