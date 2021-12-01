@@ -1,8 +1,6 @@
 <?php
 include_once "author.php";
 include_once "genre.php";
-include_once "source.php";
-
 
 
 class movie
@@ -15,8 +13,8 @@ class movie
     protected int $ratingMovie;
     protected string $description;
     protected array $genres;
-    protected array $imgSource;
-    protected array $trailerSource;
+    protected string $imgSource;
+    protected string $trailerSource;
 
     /**
      * @param int $idMovie
@@ -31,7 +29,7 @@ class movie
      * @param array $trailerSource
      */
     public function __construct(int $idMovie, string $nameMovie, int $yearMovie, int $durationMovie, author $idAuthor,
-                                int $ratingMovie, string $description, array $genres, array $imgSource, array $trailerSource)
+                                int $ratingMovie, string $description, array $genres, string $imgSource, string $trailerSource)
     {
         $this->idMovie = $idMovie;
         $this->nameMovie = $nameMovie;
@@ -174,33 +172,33 @@ class movie
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getImgSource(): array
+    public function getImgSource(): string
     {
         return $this->imgSource;
     }
 
     /**
-     * @param array $imgSource
+     * @param string $imgSource
      */
-    public function setImgSource(array $imgSource): void
+    public function setImgSource(string $imgSource): void
     {
         $this->imgSource = $imgSource;
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getTrailerSource(): array
+    public function getTrailerSource(): string
     {
         return $this->trailerSource;
     }
 
     /**
-     * @param array $trailerSource
+     * @param string $trailerSource
      */
-    public function setTrailerSource(array $trailerSource): void
+    public function setTrailerSource(string $trailerSource): void
     {
         $this->trailerSource = $trailerSource;
     }

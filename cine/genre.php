@@ -4,15 +4,15 @@ include_once "movie.php";
 class genre
 {
     protected int $idGenre;
-    protected movie $idMovie;
+    protected int $idMovie;
     protected string $nameGenre;
 
     /**
      * @param int $idGenre
-     * @param movie $idMovie
+     * @param int $idMovie
      * @param string $nameGenre
      */
-    public function __construct(int $idGenre, movie $idMovie, string $nameGenre)
+    public function __construct(int $idGenre, int $idMovie, string $nameGenre)
     {
         $this->idGenre = $idGenre;
         $this->idMovie = $idMovie;
@@ -37,17 +37,17 @@ class genre
     }
 
     /**
-     * @return movie
+     * @return int
      */
-    public function getIdMovie(): movie
+    public function getIdMovie(): int
     {
         return $this->idMovie;
     }
 
     /**
-     * @param movie $idMovie
+     * @param int $idMovie
      */
-    public function setIdMovie(movie $idMovie): void
+    public function setIdMovie(int $idMovie): void
     {
         $this->idMovie = $idMovie;
     }
