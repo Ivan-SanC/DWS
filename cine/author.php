@@ -3,8 +3,8 @@
 
 class author
 {
-protected  int $idAuthor;
-protected  string  $nameAuthor;
+    protected  int $idAuthor;
+    protected  string  $nameAuthor;
 
     /**
      * @param int $idAuthor

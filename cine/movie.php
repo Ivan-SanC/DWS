@@ -1,5 +1,4 @@
 <?php
-
 include_once "author.php";
 include_once "genre.php";
 include_once "source.php";
@@ -8,37 +7,37 @@ include_once "source.php";
 
 class movie
 {
-protected int $idMovie;
-protected  string  $nameMovie;
-protected int $yearMovie;
-protected int $durationMovie;
-protected author $autorId;
-protected int $ratingMovie;
-protected string $description;
-protected array $genres;
-protected array $imgSource;
-protected array $trailerSource;
+    protected int $idMovie;
+    protected  string  $nameMovie;
+    protected int $yearMovie;
+    protected int $durationMovie;
+    protected author $idAuthor;
+    protected int $ratingMovie;
+    protected string $description;
+    protected array $genres;
+    protected array $imgSource;
+    protected array $trailerSource;
 
     /**
      * @param int $idMovie
      * @param string $nameMovie
      * @param int $yearMovie
      * @param int $durationMovie
-     * @param author $autorId
+     * @param author $idAuthor
      * @param int $ratingMovie
      * @param string $description
      * @param array $genres
      * @param array $imgSource
      * @param array $trailerSource
      */
-    public function __construct(int $idMovie, string $nameMovie, int $yearMovie, int $durationMovie, author $autorId,
+    public function __construct(int $idMovie, string $nameMovie, int $yearMovie, int $durationMovie, author $idAuthor,
                                 int $ratingMovie, string $description, array $genres, array $imgSource, array $trailerSource)
     {
         $this->idMovie = $idMovie;
         $this->nameMovie = $nameMovie;
         $this->yearMovie = $yearMovie;
         $this->durationMovie = $durationMovie;
-        $this->autorId = $autorId;
+        $this->idAuthor = $idAuthor;
         $this->ratingMovie = $ratingMovie;
         $this->description = $description;
         $this->genres = $genres;
@@ -113,17 +112,17 @@ protected array $trailerSource;
     /**
      * @return author
      */
-    public function getAutorId(): author
+    public function getIdAuthor(): author
     {
-        return $this->autorId;
+        return $this->idAuthor;
     }
 
     /**
-     * @param author $autorId
+     * @param author $idAuthor
      */
-    public function setAutorId(author $autorId): void
+    public function setAutorId(author $idAuthor): void
     {
-        $this->autorId = $autorId;
+        $this->idAuthor = $idAuthor;
     }
 
     /**

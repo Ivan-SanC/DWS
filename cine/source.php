@@ -3,10 +3,10 @@ include_once "movie.php";
 
 class source
 {
-protected int $idSource;
-protected movie $idMovie;
-protected string $imgSource;
-protected string $trailerSource;
+    protected int $idSource;
+    protected movie $idMovie;
+    protected string $imgSource;
+    protected string $trailerSource;
 
     /**
      * @param int $idSource

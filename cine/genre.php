@@ -3,9 +3,9 @@ include_once "movie.php";
 
 class genre
 {
-protected int $idGenre;
-protected movie $idMovie;
-protected string $nameGenre;
+    protected int $idGenre;
+    protected movie $idMovie;
+    protected string $nameGenre;
 
     /**
      * @param int $idGenre
