@@ -9,7 +9,7 @@ class dbo extends mysqli
 {
     protected string $hostname="localhost";
     protected string $username="root";
-    protected string $password="admin";
+    protected string $password="Pascal.69";
     protected string $database="db_movies";
 
     public function default(){
@@ -79,5 +79,19 @@ class dbo extends mysqli
 
         return $objMovie;
     }
+
+
+    public function filterGenres(){
+        $sql="SELECT DISTINCT nameGenres FROM table_genres";
+        $this->default();
+        $query=$this->query($sql);
+        $this->close();
+        $array=array();
+        while ($result=$query->fetch_assoc()) {
+            $array[] = $result["nameGenres"];
+        }
+        return $array;
+    }
+
 
 }
