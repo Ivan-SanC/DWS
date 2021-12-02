@@ -9,7 +9,7 @@ class dbo extends mysqli
 {
     protected string $hostname="localhost";
     protected string $username="root";
-    protected string $password="Pascal.69";
+    protected string $password="admin";
     protected string $database="db_movies";
 
     public function default(){
@@ -42,9 +42,11 @@ class dbo extends mysqli
         $this->default();
         $query=$this->query($sql);
         $this->close();
-        $result=$query->fetch_assoc();
-        //duda con idMovie $this->getMovie($result["idMovies"])
-        $objGenre=new genre($result["idGenres"],$result["idMovies"],$result["nameGenres"]);
+        $objGenre=array();
+        while ($result=$query->fetch_assoc()) {
+            //duda con idMovie $this->getMovie($result["idMovies"])
+            $objGenre[] = new genre($result["idGenres"], $result["idMovies"], $result["nameGenres"]);
+        }
         return $objGenre;
     }
 
@@ -73,7 +75,7 @@ class dbo extends mysqli
 
         $objMovie = new movie($result["idMovies"], $result["nameMovies"], $result["yearMovies"],
             $result["durationMovies"], $this->getAuthor($result["idAuthor"]), $result["ratingMovies"],
-            $result["descriptionMovies"], $this->getGenre($result["idGenres"]),$result["imgMovies"],$result["trailerMovies"]);
+            $result["descriptionMovies"], $this->getGenre($result["idMovies"]),$result["imgMovies"],$result["trailerMovies"]);
 
         return $objMovie;
     }

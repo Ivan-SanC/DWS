@@ -19,21 +19,12 @@ class genre
         $this->nameGenre = $nameGenre;
     }
 
-
     /**
      * @return int
      */
     public function getIdGenre(): int
     {
         return $this->idGenre;
-    }
-
-    /**
-     * @param int $idGenre
-     */
-    public function setIdGenre(int $idGenre): void
-    {
-        $this->idGenre = $idGenre;
     }
 
     /**
@@ -45,14 +36,6 @@ class genre
     }
 
     /**
-     * @param int $idMovie
-     */
-    public function setIdMovie(int $idMovie): void
-    {
-        $this->idMovie = $idMovie;
-    }
-
-    /**
      * @return string
      */
     public function getNameGenre(): string
@@ -60,13 +43,6 @@ class genre
         return $this->nameGenre;
     }
 
-    /**
-     * @param string $nameGenre
-     */
-    public function setNameGenre(string $nameGenre): void
-    {
-        $this->nameGenre = $nameGenre;
-    }
 
 
 }

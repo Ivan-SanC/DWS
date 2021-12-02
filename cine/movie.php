@@ -6,15 +6,15 @@ include_once "genre.php";
 class movie
 {
     protected int $idMovie;
-    protected  string  $nameMovie;
+    protected string $nameMovie;
     protected int $yearMovie;
     protected int $durationMovie;
     protected author $idAuthor;
     protected int $ratingMovie;
     protected string $description;
     protected array $genres;
-    protected string $imgSource;
-    protected string $trailerSource;
+    protected string $imgMovie;
+    protected string $trailerMovie;
 
     /**
      * @param int $idMovie
@@ -25,11 +25,10 @@ class movie
      * @param int $ratingMovie
      * @param string $description
      * @param array $genres
-     * @param array $imgSource
-     * @param array $trailerSource
+     * @param string $imgMovie
+     * @param string $trailerMovie
      */
-    public function __construct(int $idMovie, string $nameMovie, int $yearMovie, int $durationMovie, author $idAuthor,
-                                int $ratingMovie, string $description, array $genres, string $imgSource, string $trailerSource)
+    public function __construct(int $idMovie, string $nameMovie, int $yearMovie, int $durationMovie, author $idAuthor, int $ratingMovie, string $description, array $genres, string $imgMovie, string $trailerMovie)
     {
         $this->idMovie = $idMovie;
         $this->nameMovie = $nameMovie;
@@ -39,8 +38,8 @@ class movie
         $this->ratingMovie = $ratingMovie;
         $this->description = $description;
         $this->genres = $genres;
-        $this->imgSource = $imgSource;
-        $this->trailerSource = $trailerSource;
+        $this->imgMovie = $imgMovie;
+        $this->trailerMovie = $trailerMovie;
     }
 
     /**
@@ -52,27 +51,11 @@ class movie
     }
 
     /**
-     * @param int $idMovie
-     */
-    public function setIdMovie(int $idMovie): void
-    {
-        $this->idMovie = $idMovie;
-    }
-
-    /**
      * @return string
      */
     public function getNameMovie(): string
     {
         return $this->nameMovie;
-    }
-
-    /**
-     * @param string $nameMovie
-     */
-    public function setNameMovie(string $nameMovie): void
-    {
-        $this->nameMovie = $nameMovie;
     }
 
     /**
@@ -84,27 +67,11 @@ class movie
     }
 
     /**
-     * @param int $yearMovie
-     */
-    public function setYearMovie(int $yearMovie): void
-    {
-        $this->yearMovie = $yearMovie;
-    }
-
-    /**
      * @return int
      */
     public function getDurationMovie(): int
     {
         return $this->durationMovie;
-    }
-
-    /**
-     * @param int $durationMovie
-     */
-    public function setDurationMovie(int $durationMovie): void
-    {
-        $this->durationMovie = $durationMovie;
     }
 
     /**
@@ -116,27 +83,11 @@ class movie
     }
 
     /**
-     * @param author $idAuthor
-     */
-    public function setAutorId(author $idAuthor): void
-    {
-        $this->idAuthor = $idAuthor;
-    }
-
-    /**
      * @return int
      */
     public function getRatingMovie(): int
     {
         return $this->ratingMovie;
-    }
-
-    /**
-     * @param int $ratingMovie
-     */
-    public function setRatingMovie(int $ratingMovie): void
-    {
-        $this->ratingMovie = $ratingMovie;
     }
 
     /**
@@ -148,14 +99,6 @@ class movie
     }
 
     /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
      * @return array
      */
     public function getGenres(): array
@@ -164,46 +107,20 @@ class movie
     }
 
     /**
-     * @param array $genres
+     * @return string
      */
-    public function setGenres(array $genres): void
+    public function getImgMovie(): string
     {
-        $this->genres = $genres;
+        return $this->imgMovie;
     }
 
     /**
      * @return string
      */
-    public function getImgSource(): string
+    public function getTrailerMovie(): string
     {
-        return $this->imgSource;
+        return $this->trailerMovie;
     }
-
-    /**
-     * @param string $imgSource
-     */
-    public function setImgSource(string $imgSource): void
-    {
-        $this->imgSource = $imgSource;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTrailerSource(): string
-    {
-        return $this->trailerSource;
-    }
-
-    /**
-     * @param string $trailerSource
-     */
-    public function setTrailerSource(string $trailerSource): void
-    {
-        $this->trailerSource = $trailerSource;
-    }
-
-
 
 
 }
