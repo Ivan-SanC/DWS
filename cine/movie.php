@@ -9,7 +9,7 @@ class movie
     protected string $nameMovie;
     protected int $yearMovie;
     protected int $durationMovie;
-    protected author $idAuthor;
+    protected author $author;
     protected int $ratingMovie;
     protected string $description;
     protected array $genres;
@@ -21,20 +21,20 @@ class movie
      * @param string $nameMovie
      * @param int $yearMovie
      * @param int $durationMovie
-     * @param author $idAuthor
+     * @param author $author
      * @param int $ratingMovie
      * @param string $description
      * @param array $genres
      * @param string $imgMovie
      * @param string $trailerMovie
      */
-    public function __construct(int $idMovie, string $nameMovie, int $yearMovie, int $durationMovie, author $idAuthor, int $ratingMovie, string $description, array $genres, string $imgMovie, string $trailerMovie)
+    public function __construct(int $idMovie, string $nameMovie, int $yearMovie, int $durationMovie, author $author, int $ratingMovie, string $description, array $genres, string $imgMovie, string $trailerMovie)
     {
         $this->idMovie = $idMovie;
         $this->nameMovie = $nameMovie;
         $this->yearMovie = $yearMovie;
         $this->durationMovie = $durationMovie;
-        $this->idAuthor = $idAuthor;
+        $this->author = $author;
         $this->ratingMovie = $ratingMovie;
         $this->description = $description;
         $this->genres = $genres;
@@ -77,9 +77,9 @@ class movie
     /**
      * @return author
      */
-    public function getIdAuthor(): author
+    public function getAuthor(): author
     {
-        return $this->idAuthor;
+        return $this->author;
     }
 
     /**
