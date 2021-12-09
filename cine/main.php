@@ -14,9 +14,10 @@ $genresfilter = $dbo->filterGenres();
 //echo "<pre>";
 //var_dump($movie1->getGenres());
 
-//sorting rating , year;
+//sorting rating , year order by;
 //filter generos, director;
 //buscador?
+//login cryp() para hacer comentarios
 
 //FUNCIONES PARA ORDENAR
 function sortByRating($movies)
