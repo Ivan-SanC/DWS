@@ -9,15 +9,21 @@ include_once "dbo.php";
 $dbo = new dbo();
 $movies = $dbo->getMovies();
 $genresfilter = $dbo->filterGenres();
+$email="";
+$user="";
+$userPass="";
 
 //$movie1 = $dbo->getMovie(1);
 //echo "<pre>";
 //var_dump($movie1->getGenres());
 
 //sorting rating , year order by;
-//filter generos, director;
+//filter generos, director group by;
 //buscador?
 //login cryp() para hacer comentarios
+//modal para el login boton y sale ventana
+//https://code.tutsplus.com/es/tutorials/create-a-php-login-form--cms-33261
+//session start cuando se valida el login
 
 //FUNCIONES PARA ORDENAR
 function sortByRating($movies)
@@ -83,7 +89,7 @@ $sortYear = sortByYear($movies);
             margin-bottom: 2rem;
         }
 
-        .custom .btn, .boton, .selection, .nav-item {
+        .custom .btn, .boton, .selection {
             border: 5px solid;
             border-image-slice: 1;
             background: var(--gradient) !important;
@@ -94,7 +100,7 @@ $sortYear = sortByYear($movies);
             transition: all .4s ease;
         }
 
-        .custom .btn:hover, .boton:hover, .btn:focus, .boton:focus, .selection:focus, .selection:hover, nav-item {
+        .custom .btn:hover, .boton:hover, .btn:focus, .boton:focus, .selection:focus, .selection:hover{
             background: var(--gradient) !important;
             -webkit-background-clip: initial !important;
             -webkit-text-fill-color: antiquewhite !important;
@@ -133,22 +139,36 @@ $sortYear = sortByYear($movies);
             text-decoration: none
         }
 
-        select, .boton {
+        p {
+            color: antiquewhite
+        }
+
+        select, .boton, {
             height: 35px;
         }
 
-        option {
+        option, input{
             color: antiquewhite;
             background-color: #3d3d3d;
         }
 
-        form {
+        form{
             margin-left: 30px;
         }
 
-        p {
-            color: antiquewhite
+        .formLog{
+            text-align: right;
+            margin-right: 30px;
         }
+
+        .form-element{
+            margin-bottom: 5px;
+        }
+
+        label{
+            color: antiquewhite;
+        }
+
     </style>
 
     <title>Only Movies!</title>
@@ -159,28 +179,46 @@ $sortYear = sortByYear($movies);
 <a href="main.php">
     <h1>Only Movies!</h1>
 </a>
-<!--FORMULARIO PARA FILTRAR POR GENEROS y ORDENAR POR VALORACION Y POR AÑO-->
-<form action="main.php" method="post">
+<div class="container-fluid">
+    <form class="formLog" action="main.php" method="post" name="signup-form">
+        <div class="form-element">
+            <label>Email: </label>
+            <input type="email" name="email" value="<?php $email ?>" />
+        </div>
+            <div class="form-element">
+                <label>Username: </label>
+                <input type="text" name="username" value="<?php $user ?>" required />
+            </div>
+            <div class="form-element">
+                <label>Password: </label>
+                <input type="password" name="password" value="<?php $userPass ?>" required />
+            </div>
+            <button class="boton" type="submit" >Register</button>
+    </form>
 
-    <select class="selection" name="genres">
-        <option value='vacio'>Generos</option>
-        <?php
-        for ($i = 0; $i < count($genresfilter); $i++) {
-            echo "<option value='" . $genresfilter[$i] . "'>" . $genresfilter[$i] . "</option>";
-        }
-        ?>
-    </select>
+    <!--FORMULARIO PARA FILTRAR POR GENEROS y ORDENAR POR VALORACION Y POR AÑO-->
+    <form action="main.php" method="post">
 
+        <select class="selection" name="genres">
+            <option value='vacio'>Generos</option>
+            <?php
+            for ($i = 0; $i < count($genresfilter); $i++) {
+                echo "<option value='" . $genresfilter[$i] . "'>" . $genresfilter[$i] . "</option>";
+            }
+            ?>
+        </select>
 
-    <select class="selection" name="sort">
-        <option value='void'>Ordenar por:</option>
-        <option value='year'>Año</option>
-        <option value='rate'>Valoración</option>
+        <select class="selection" name="sort">
+            <option value='void'>Ordenar por:</option>
+            <option value='year'>Año</option>
+            <option value='rate'>Valoración</option>
 
-    </select>
+        </select>
 
-    <button class="boton" type="submit">Filtrar</button>
-</form>
+        <button class="boton" type="submit">Filtrar</button>
+    </form>
+</div>
+
 
 
 <div class="container mx-auto mt-4 custom">

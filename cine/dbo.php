@@ -7,15 +7,15 @@ include_once "movie.php";
 
 class dbo extends mysqli
 {
-    protected string $hostname="sql480.main-hosting.eu";
-    protected string $username="u850300514_isanchez";
-    protected string $password="x43223947R";
-    protected string $database="u850300514_isanchez";
+    //protected string $hostname="sql480.main-hosting.eu";
+    //protected string $username="u850300514_isanchez";
+    //protected string $password="x43223947R";
+    //protected string $database="u850300514_isanchez";
 
-    //protected string $hostname = "localhost";
-    //protected string $username = "root";
-    //protected string $password = "admin";
-    //protected string $database = "db_movies";
+    protected string $hostname = "localhost";
+    protected string $username = "root";
+    protected string $password = "Pascal.69";
+    protected string $database = "db_movies";
 
     //Conexion
     public function default()
