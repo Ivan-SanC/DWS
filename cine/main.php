@@ -1,6 +1,6 @@
 <?php
 include_once "author.php";
-include_once "genre.php";
+include_once "genreNew.php";
 include_once "movie.php";
 include_once "dbo.php";
 
@@ -9,6 +9,7 @@ include_once "dbo.php";
 $dbo = new dbo();
 $movies = $dbo->getMovies();
 $genresfilter = $dbo->filterGenres();
+
 $email="";
 $user="";
 $userPass="";
@@ -24,41 +25,6 @@ $userPass="";
 //modal para el login boton y sale ventana
 //https://code.tutsplus.com/es/tutorials/create-a-php-login-form--cms-33261
 //session start cuando se valida el login
-
-//FUNCIONES PARA ORDENAR
-function sortByRating($movies)
-{
-    for ($i = 0; $i < count($movies) - 1; $i++) {
-        for ($j = $i + 1; $j < count($movies); $j++) {
-            if ($movies[$i]->getRatingMovie() < $movies[$j]->getRatingMovie()) {
-                $aux = $movies[$i];
-                $movies[$i] = $movies[$j];
-                $movies[$j] = $aux;
-            }
-        }
-    }
-    return $movies;
-}
-
-function sortByYear($movies)
-{
-    for ($i = 0; $i < count($movies) - 1; $i++) {
-        for ($j = $i + 1; $j < count($movies); $j++) {
-            if ($movies[$i]->getYearMovie() > $movies[$j]->getYearMovie()) {
-                $aux = $movies[$i];
-                $movies[$i] = $movies[$j];
-                $movies[$j] = $aux;
-            }
-        }
-    }
-    return $movies;
-
-}
-
-
-$sortRating = sortByRating($movies);
-$sortYear = sortByYear($movies);
-
 
 ?>
 <html>
@@ -179,23 +145,25 @@ $sortYear = sortByYear($movies);
 <a href="main.php">
     <h1>Only Movies!</h1>
 </a>
+
 <div class="container-fluid">
+    <!--
     <form class="formLog" action="main.php" method="post" name="signup-form">
         <div class="form-element">
             <label>Email: </label>
-            <input type="email" name="email" value="<?php $email ?>" />
+            <input type="email" name="email" value="<?php //$email ?>" />
         </div>
             <div class="form-element">
                 <label>Username: </label>
-                <input type="text" name="username" value="<?php $user ?>" required />
+                <input type="text" name="username" value="<?php //$user ?>" required />
             </div>
             <div class="form-element">
                 <label>Password: </label>
-                <input type="password" name="password" value="<?php $userPass ?>" required />
+                <input type="password" name="password" value="<?php //$userPass ?>" required />
             </div>
             <button class="boton" type="submit" >Register</button>
     </form>
-
+-->
     <!--FORMULARIO PARA FILTRAR POR GENEROS y ORDENAR POR VALORACION Y POR AÑO-->
     <form action="main.php" method="post">
 
@@ -210,8 +178,9 @@ $sortYear = sortByYear($movies);
 
         <select class="selection" name="sort">
             <option value='void'>Ordenar por:</option>
-            <option value='year'>Año</option>
-            <option value='rate'>Valoración</option>
+            <option value='yearMovies'>Año</option>
+            <option value='ratingMovies'>Valoración</option>
+            <option value='durationMovies'>Duración</option>
 
         </select>
 
@@ -231,10 +200,12 @@ $sortYear = sortByYear($movies);
         if (isset($_POST["sort"])) {
             $sorted = ($_POST["sort"]);
 
-            if ($sorted == "year") {
-                $movies = $sortYear;
-            } elseif ($sorted == "rate") {
-                $movies = $sortRating;
+            if ($sorted == "yearMovies") {
+                $movies = $dbo->sortMovies($sorted);
+            } elseif ($sorted == "ratingMovies") {
+                $movies = $dbo->sortMovies($sorted);
+            }elseif($sorted == "durationMovies") {
+                $movies = $dbo->sortMovies($sorted);
             }
 
             //Comprueba si hay algun Genero

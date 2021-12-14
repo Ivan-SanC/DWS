@@ -1,7 +1,6 @@
 <?php
 include_once "author.php";
-include_once "genre.php";
-
+include_once "genreNew.php";
 include_once "movie.php";
 
 
@@ -46,16 +45,16 @@ class dbo extends mysqli
     }
 
 
-    public function getGenre($idMovie)
+    public function getGenres($idMovies)
     {
-        $sql = "SELECT * FROM table_genres where idMovies=" . $idMovie;
+        $sql = "SELECT g.idGenre, g.nameGenre FROM table_genresnew as g INNER JOIN table_moviesxgenres as mg ON g.idGenre=mg.idGenres  where mg.idMovies=" . $idMovies;
         $this->default();
         $query = $this->query($sql);
         $this->close();
         $objGenre = array();
         while ($result = $query->fetch_assoc()) {
             //duda con idMovie $this->getMovie($result["idMovies"])
-            $objGenre[] = new genre($result["idGenres"], $result["idMovies"], $result["nameGenres"]);
+            $objGenre[] = new genreNew($result["idGenre"], $result["nameGenre"]);
         }
         return $objGenre;
     }
@@ -70,7 +69,7 @@ class dbo extends mysqli
         while ($result = $query->fetch_assoc()) {
             $objMovies[] = new movie($result["idMovies"], $result["nameMovies"], $result["yearMovies"],
                 $result["durationMovies"], $this->getAuthor($result["idAuthor"]), $result["ratingMovies"], $result["descriptionMovies"],
-                $this->getGenre($result["idMovies"]), $result["imgMovies"], $result["trailerMovies"]);
+                $this->getGenres($result["idMovies"]), $result["imgMovies"], $result["trailerMovies"]);
 
         }
         return $objMovies;
@@ -86,7 +85,7 @@ class dbo extends mysqli
 
         $objMovie = new movie($result["idMovies"], $result["nameMovies"], $result["yearMovies"],
             $result["durationMovies"], $this->getAuthor($result["idAuthor"]), $result["ratingMovies"],
-            $result["descriptionMovies"], $this->getGenre($result["idMovies"]), $result["imgMovies"], $result["trailerMovies"]);
+            $result["descriptionMovies"], $this->getGenres($result["idMovies"]), $result["imgMovies"], $result["trailerMovies"]);
 
         return $objMovie;
     }
@@ -94,16 +93,54 @@ class dbo extends mysqli
 
     public function filterGenres()
     {
-        $sql = "SELECT DISTINCT nameGenres FROM table_genres";
+        $sql = "SELECT nameGenre FROM table_genresnew";
         $this->default();
         $query = $this->query($sql);
         $this->close();
         $array = array();
         while ($result = $query->fetch_assoc()) {
-            $array[] = $result["nameGenres"];
+            $array[] = $result["nameGenre"];
         }
         return $array;
     }
 
+    //order by rating year
+    public function sortMovies($sort)
+    {
+        $sql = "SELECT * FROM table_movies ORDER BY " . $sort;
+        $this->default();
+        $query = $this->query($sql);
+        $this->close();
+        $objMovies = array();
+        while ($result = $query->fetch_assoc()) {
+            $objMovies[] = new movie($result["idMovies"], $result["nameMovies"], $result["yearMovies"],
+                $result["durationMovies"], $this->getAuthor($result["idAuthor"]), $result["ratingMovies"], $result["descriptionMovies"],
+                $this->getGenres($result["idMovies"]), $result["imgMovies"], $result["trailerMovies"]);
 
+        }
+        return $objMovies;
+    }
+
+    //Registro
+    public function registrarUser($email, $user, $userPass)
+    {
+        $sql = "SELECT * FROM table_users WHERE nameUser=" . $user . ",passUser=" . $userPass . ",emailUser=" . $email;
+        $this->default();
+        $query = $this->query($sql);
+        $this->close();
+        $result = $query->fetch_assoc();
+        if (mysqli_num_rows($result) > 0) {
+            echo "Error el usuario ya existe";
+        } else {
+            $sql = 'INSERT INTO table_users (nameUSer,passUser,emailUser) 
+VALUES ("' . $this->real_escape_string($user) . '",
+"' . $this->real_escape_string($userPass) . '",
+"' . $this->real_escape_string($email) . '")';
+            if ($this->query($sql) === TRUE) {
+                echo "New record created successfully <br>";
+            } else {
+                echo "Error: " . $sql . "<br>" . $this->error;
+            }
+        }
+    }
 }

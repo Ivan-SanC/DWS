@@ -1,6 +1,6 @@
 <?php
 include_once "author.php";
-include_once "genre.php";
+include_once "genreNew.php";
 include_once "movie.php";
 include_once "dbo.php";
 
