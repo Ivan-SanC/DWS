@@ -122,25 +122,58 @@ class dbo extends mysqli
     }
 
     //Registro
-    public function registrarUser($email, $user, $userPass)
+    public function registrarUser($user, $userPass, $email)
     {
-        $sql = "SELECT * FROM table_users WHERE nameUser=" . $user . ",passUser=" . $userPass . ",emailUser=" . $email;
+        $sql = 'SELECT * FROM table_users WHERE emailUser="' . $email . '" OR nameUser="' . $user . '"';
         $this->default();
         $query = $this->query($sql);
-        $this->close();
-        $result = $query->fetch_assoc();
-        if (mysqli_num_rows($result) > 0) {
-            echo "Error el usuario ya existe";
+        if ($query->num_rows > 0) {
+            while ($result = $query->fetch_assoc()) {
+
+               if($result["nameUser"]==$user){
+                   echo "Este Usuario ya existe.";
+               } else{
+                   echo "Este email ya existe.";
+               }
+            }
+
         } else {
-            $sql = 'INSERT INTO table_users (nameUSer,passUser,emailUser) 
-VALUES ("' . $this->real_escape_string($user) . '",
-"' . $this->real_escape_string($userPass) . '",
-"' . $this->real_escape_string($email) . '")';
-            if ($this->query($sql) === TRUE) {
-                echo "New record created successfully <br>";
+            $sql = 'INSERT INTO table_users (nameUser,passUser,emailUser) 
+            VALUES ("' . $this->real_escape_string($user) . '",
+            "' . $this->real_escape_string($userPass) . '",
+            "' . $this->real_escape_string($email) . '")';
+
+            $query = $this->query($sql);
+
+            if ($query === TRUE) {
+                echo "Registro completado <br>";
             } else {
                 echo "Error: " . $sql . "<br>" . $this->error;
             }
+
         }
+        $this->close();
+    }
+
+    public function getUser($user, $pass)
+    {
+        $sql="SELECT * FROM table_users WHERE nameUser= '$user'";
+        $this->default();
+        $query = $this->query($sql);
+        if ($query->num_rows > 0) {
+            while ($result = $query->fetch_assoc()) {
+                if($result["nameUser"]==$user && hash_equals($result["passUser"],crypt($pass,$result["passUser"]))){
+                    echo "Bienvenido ".$user;
+                }elseif ($result["nameUser"]!=$user){
+                    echo "El Usuario no existe";
+                }else{
+                    echo "Contraseña incorrecta";
+                }
+            }
+            //echo "Bienvenido ".$user;
+        } else {
+            echo "El usuario no existe. <br>";
+        }
+        $this->close();
     }
 }
