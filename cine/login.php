@@ -156,32 +156,30 @@ $dbo = new dbo();
     <h1>Only Movies!</h1>
 </a>
 <div class="container mx-auto mt-4 custom">
-    <h3>Registro</h3>
-    <form class="formReg" action="registrar.php" method="post">
+    <h3>Login</h3>
+    <form class="formLog" method="post" action="" name="signin-form">
         <div class="form-element">
-            <label>Email: </label>
-            <input type="email" name="email" required/>
-        </div>
-        <div class="form-element">
-            <label>Username: </label>
+            <label>Username</label>
             <input type="text" name="username" pattern="[a-zA-Z0-9]+" required/>
         </div>
         <div class="form-element">
-            <label>Password: </label>
+            <label>Password</label>
             <input type="password" name="password" required/>
         </div>
-        <button class="boton" type="submit">Register</button>
+        <button class="boton" type="submit" name="login" value="login">Log In</button>
     </form>
-    <p>Tienes cuenta? <a href="login.php">Entra aquí</a></p>
 </div>
+<p>No tienes cuenta?<a href="registrar.php"> Registrate aquí</a></p>
 <?php
-if (isset($_POST["email"])) {
-    $email = $_POST["email"];
+
+//https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
+
+if (isset($_POST["username"])) {
     $user = $_POST["username"];
     $pass = $_POST["password"];
-    $userPass = crypt($pass,$pass);
-    $registrar = $dbo->registrarUser($user, $userPass, $email);
+    $login=$dbo->getUser($user,$pass);
 }
+
 ?>
 </body>
 </html>

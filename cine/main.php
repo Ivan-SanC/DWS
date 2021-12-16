@@ -10,9 +10,9 @@ $dbo = new dbo();
 $movies = $dbo->getMovies();
 $genresfilter = $dbo->filterGenres();
 
-$email="";
-$user="";
-$userPass="";
+$email = "";
+$user = "";
+$userPass = "";
 
 //$movie1 = $dbo->getMovie(1);
 //echo "<pre>";
@@ -66,7 +66,7 @@ $userPass="";
             transition: all .4s ease;
         }
 
-        .custom .btn:hover, .boton:hover, .btn:focus, .boton:focus, .selection:focus, .selection:hover{
+        .custom .btn:hover, .boton:hover, .btn:focus, .boton:focus, .selection:focus, .selection:hover {
             background: var(--gradient) !important;
             -webkit-background-clip: initial !important;
             -webkit-text-fill-color: antiquewhite !important;
@@ -113,26 +113,17 @@ $userPass="";
             height: 35px;
         }
 
-        option, input{
+        option, input {
             color: antiquewhite;
             background-color: #3d3d3d;
         }
 
-        form{
+        form {
             margin-left: 30px;
         }
 
-        .formLog{
+        .btnbox{
             text-align: right;
-            margin-right: 30px;
-        }
-
-        .form-element{
-            margin-bottom: 5px;
-        }
-
-        label{
-            color: antiquewhite;
         }
 
     </style>
@@ -147,23 +138,11 @@ $userPass="";
 </a>
 
 <div class="container-fluid">
-    <!--
-    <form class="formLog" action="main.php" method="post" name="signup-form">
-        <div class="form-element">
-            <label>Email: </label>
-            <input type="email" name="email" value="<?php //$email ?>" />
-        </div>
-            <div class="form-element">
-                <label>Username: </label>
-                <input type="text" name="username" value="<?php //$user ?>" required />
-            </div>
-            <div class="form-element">
-                <label>Password: </label>
-                <input type="password" name="password" value="<?php //$userPass ?>" required />
-            </div>
-            <button class="boton" type="submit" >Register</button>
-    </form>
--->
+    <div class="btnbox">
+        <button class="boton" onclick="location.href='login.php'">Iniciar sesión</button>
+        <button class="boton" onclick="location.href='registrar.php'">Registro</button>
+    </div>
+
     <!--FORMULARIO PARA FILTRAR POR GENEROS y ORDENAR POR VALORACION Y POR AÑO-->
     <form action="main.php" method="post">
 
@@ -186,8 +165,8 @@ $userPass="";
 
         <button class="boton" type="submit">Filtrar</button>
     </form>
-</div>
 
+</div>
 
 
 <div class="container mx-auto mt-4 custom">
@@ -204,7 +183,7 @@ $userPass="";
                 $movies = $dbo->sortMovies($sorted);
             } elseif ($sorted == "ratingMovies") {
                 $movies = $dbo->sortMovies($sorted);
-            }elseif($sorted == "durationMovies") {
+            } elseif ($sorted == "durationMovies") {
                 $movies = $dbo->sortMovies($sorted);
             }
 
