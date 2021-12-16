@@ -5,7 +5,7 @@ include_once "movie.php";
 include_once "dbo.php";
 
 $dbo = new dbo();
-
+session_start();
 
 ?>
 
@@ -38,13 +38,13 @@ $dbo = new dbo();
             border-image-slice: 1;
             background: var(--gradient) !important;
             -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
+            -webkit-text-fill-color: antiquewhite !important;
             border-image-source: var(--gradient) !important;
             text-decoration: none;
             transition: all .4s ease;
         }
 
-        .custom,.boton:hover, .boton:focus {
+        .boton:hover, .boton:focus {
             background: var(--gradient) !important;
             -webkit-background-clip: initial !important;
             -webkit-text-fill-color: antiquewhite !important;
@@ -81,7 +81,7 @@ $dbo = new dbo();
             color: antiquewhite
         }
 
-        select, .boton, {
+        .boton, {
             height: 35px;
         }
 
@@ -119,6 +119,8 @@ $dbo = new dbo();
             font-weight: 100;
             font-family: 'Lato';
             padding: 10px;
+            color: antiquewhite;
+            background-color: #3d3d3d;
         }
 
         form {

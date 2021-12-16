@@ -33,23 +33,23 @@ $dbo = new dbo();
 
         }
 
-        .custom,.boton {
+        .custom.boton{
             border: 5px solid;
             border-image-slice: 1;
             background: var(--gradient) !important;
             -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
+            -webkit-text-fill-color: antiquewhite !important;
             border-image-source: var(--gradient) !important;
             text-decoration: none;
             transition: all .4s ease;
         }
 
-        .custom,.boton:hover, .boton:focus {
+        .boton:hover, .boton:focus {
             background: var(--gradient) !important;
             -webkit-background-clip: initial !important;
             -webkit-text-fill-color: antiquewhite !important;
             border: 5px solid #5653b7 !important;
-            box-shadow: #222 1px 0 10px;
+            box-shadow: #222222 1px 0 10px;
             text-decoration: none;
         }
 
@@ -78,16 +78,11 @@ $dbo = new dbo();
         }
 
         p {
-            color: antiquewhite
-        }
-
-        select, .boton, {
-            height: 35px;
-        }
-
-        option{
             color: antiquewhite;
-            background-color: #3d3d3d;
+        }
+
+        .boton, {
+            height: 35px;
         }
 
         form {
@@ -111,6 +106,14 @@ $dbo = new dbo();
             display: inline-block;
             font-size: 1.5rem;
             font-family: 'Lato';
+
+        }
+        .formReg{
+            background: #222222;
+
+            border: 1px solid #c424dd;
+            color: antiquewhite;
+            margin-bottom: 2rem;
         }
 
         input {
@@ -126,11 +129,11 @@ $dbo = new dbo();
             padding: 20px;
             border: 5px solid #ccc;
             width: 500px;
-            background: #eee;
         }
 
         div.form-element {
             margin: 20px 0;
+            color: antiquewhite;
         }
 
         button {
@@ -159,15 +162,15 @@ $dbo = new dbo();
     <h3>Registro</h3>
     <form class="formReg" action="registrar.php" method="post">
         <div class="form-element">
-            <label>Email: </label>
+            <label>Email </label>
             <input type="email" name="email" required/>
         </div>
         <div class="form-element">
-            <label>Username: </label>
+            <label>Username </label>
             <input type="text" name="username" pattern="[a-zA-Z0-9]+" required/>
         </div>
         <div class="form-element">
-            <label>Password: </label>
+            <label>Password </label>
             <input type="password" name="password" required/>
         </div>
         <button class="boton" type="submit">Register</button>
