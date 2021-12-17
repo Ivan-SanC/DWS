@@ -161,11 +161,15 @@ if (isset($_POST["username"])) {
     $user = $_POST["username"];
     $pass = $_POST["password"];
     $login=$dbo->getUser($user,$pass);
+    if($login){
+        $_SESSION["userId"]=$login;
+        echo "<script>alert('Bienvenido ".$user."');window.location.href='main.php';</script>";
+    }
 }
 //if isset para cambiar los botones main cuando estas logeado a cerrar sesion
 //if isset para comentarios
 //tabla intermedia user y movies que guarda el id movie id user y comentarios
-//details mostrar comentarios
+//details mostrar comentarios login registro y valoracion
 ?>
 </body>
 </html>

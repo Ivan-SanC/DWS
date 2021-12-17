@@ -171,9 +171,8 @@ class dbo extends mysqli
             while ($result = $query->fetch_assoc()) {
 
                 if($result["nameUser"]==$user && hash_equals($result["passUser"],crypt($pass,$result["passUser"]))){
-                    echo "<script>alert('Bienvenido ".$user."');window.location.href='main.php';</script>";
-
-                    $_SESSION["userId"]=$result["idUser"];
+                    $idUser=$result["idUser"];
+                    return $idUser;
 
                 }elseif ($result["nameUser"]!=$user){
                     echo "<p>El Usuario no existe.</p>";

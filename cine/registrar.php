@@ -164,7 +164,7 @@ if (isset($_POST["email"])) {
     $userPass = crypt($pass,$pass);
     $registrar = $dbo->registrarUser($user, $userPass, $email);
     if($registrar){
-        $_SESSION[$registrar];
+        $_SESSION["userId"]=$registrar;
         echo "<script>alert('Bienvenido ".$user."');window.location.href='main.php';</script>";
     }
 }
