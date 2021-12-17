@@ -4,6 +4,7 @@ include_once "genreNew.php";
 include_once "movie.php";
 include_once "dbo.php";
 
+session_start();
 $dbo = new dbo();
 
 
@@ -145,13 +146,13 @@ $dbo = new dbo();
         </div>
         <div class="form-element">
             <label>Username: </label>
-            <input type="text" name="username" pattern="[a-zA-Z0-9]+" required/>
+            <input type="text" name="username" pattern="[\S.]+" required/>
         </div>
         <div class="form-element">
             <label>Password: </label>
-            <input type="password" name="password" required/>
+            <input type="password" name="password" pattern="[\S.]+" required/>
         </div>
-        <button class="boton" type="submit">Register</button>
+        <button class="boton" type="submit">Registrar</button>
     </form>
     <p>Tienes cuenta? <a href="login.php">Entra aquí</a></p>
 </div>
@@ -162,6 +163,10 @@ if (isset($_POST["email"])) {
     $pass = $_POST["password"];
     $userPass = crypt($pass,$pass);
     $registrar = $dbo->registrarUser($user, $userPass, $email);
+    if($registrar){
+        $_SESSION[$registrar];
+        echo "<script>alert('Bienvenido ".$user."');window.location.href='main.php';</script>";
+    }
 }
 ?>
 </body>

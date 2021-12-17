@@ -5,6 +5,7 @@ include_once "movie.php";
 include_once "dbo.php";
 
 //URL http://isanchez.dawsonferrer.com/cine
+session_start();
 
 $dbo = new dbo();
 $movies = $dbo->getMovies();
@@ -138,9 +139,15 @@ $userPass = "";
 </a>
 
 <div class="container-fluid">
+
     <div class="btnbox">
-        <button class="boton" onclick="location.href='login.php'">Iniciar sesión</button>
-        <button class="boton" onclick="location.href='registrar.php'">Registro</button>
+        <?php if (isset($_SESSION["userId"])){ ?>
+            <button class="boton" onclick="location.href='close.php'">Cerrar sesión</button>
+        <?php }else{ ?>
+            <button class="boton" onclick="location.href='login.php'">Iniciar sesión</button>
+            <button class="boton" onclick="location.href='registrar.php'">Registro</button>
+
+        <?php } ?>
     </div>
 
     <!--FORMULARIO PARA FILTRAR POR GENEROS y ORDENAR POR VALORACION Y POR AÑO-->

@@ -13,7 +13,7 @@ class dbo extends mysqli
 
     protected string $hostname = "localhost";
     protected string $username = "root";
-    protected string $password = "admin";
+    protected string $password = "Pascal.69";
     protected string $database = "db_movies";
 
     //Conexion
@@ -146,13 +146,18 @@ class dbo extends mysqli
             $query = $this->query($sql);
 
             if ($query === TRUE) {
-                echo "<p>Registro completado.</p><br>";
-            } else {
-                echo "<p> Error: " . $sql . "<br>" . $this->error."</p>";
+                $sql="SELECT * FROM table_users WHERE nameUser= '$user'";
+                $this->default();
+                $query = $this->query($sql);
+                $this->close();
+                $result = $query->fetch_assoc();
+                $idUser=$result["idUser"];
+                return $idUser;
+
             }
 
         }
-        $this->close();
+
     }
 
     public function getUser($user, $pass)
@@ -160,18 +165,24 @@ class dbo extends mysqli
         $sql="SELECT * FROM table_users WHERE nameUser= '$user'";
         $this->default();
         $query = $this->query($sql);
+
         if ($query->num_rows > 0) {
+
             while ($result = $query->fetch_assoc()) {
+
                 if($result["nameUser"]==$user && hash_equals($result["passUser"],crypt($pass,$result["passUser"]))){
-                    echo "<p> Bienvenido ".$user.".</p>";
+                    echo "<script>alert('Bienvenido ".$user."');window.location.href='main.php';</script>";
+
                     $_SESSION["userId"]=$result["idUser"];
+
                 }elseif ($result["nameUser"]!=$user){
                     echo "<p>El Usuario no existe.</p>";
+
                 }else{
                     echo "<p>Contraseña incorrecta.</p>";
                 }
             }
-            //echo "Bienvenido ".$user;
+
         } else {
             echo "El usuario no existe. <br>";
         }
