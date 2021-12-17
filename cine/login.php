@@ -4,8 +4,9 @@ include_once "genreNew.php";
 include_once "movie.php";
 include_once "dbo.php";
 
-$dbo = new dbo();
 session_start();
+
+$dbo = new dbo();
 
 ?>
 
@@ -25,7 +26,7 @@ session_start();
             --gradient: linear-gradient(to left top, #c424dd 10%, #5653b7 90%) !important;
         }
 
-        body {
+        body{
             background: #222222 !important;
             margin: 50px auto;
             text-align: center;
@@ -33,12 +34,12 @@ session_start();
 
         }
 
-        .custom,.boton {
+        .boton, .formLog {
             border: 5px solid;
             border-image-slice: 1;
             background: var(--gradient) !important;
             -webkit-background-clip: text !important;
-            -webkit-text-fill-color: antiquewhite !important;
+            -webkit-text-fill-color: antiquewhite;
             border-image-source: var(--gradient) !important;
             text-decoration: none;
             transition: all .4s ease;
@@ -81,54 +82,34 @@ session_start();
             color: antiquewhite
         }
 
-        .boton, {
-            height: 35px;
-        }
-
-        option{
-            color: antiquewhite;
-            background-color: #3d3d3d;
-        }
-
-        form {
-            margin-left: 30px;
-        }
-
-
-        .form-element {
-            margin-bottom: 5px;
-        }
 
         /*log*/
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
 
         label {
             width: 150px;
             display: inline-block;
             font-size: 1.5rem;
             font-family: 'Lato';
+
         }
 
         input {
-            border: 2px solid #ccc;
             font-size: 1.5rem;
             font-weight: 100;
             font-family: 'Lato';
+            background: #222;
             padding: 10px;
-            color: antiquewhite;
-            background-color: #3d3d3d;
+            border: 5px solid;
+            border-image-slice: 1;
+            -webkit-background-clip: text !important;
+            border-image-source: var(--gradient) !important;
         }
 
         form {
             margin: 25px auto;
             padding: 20px;
-            border: 5px solid #ccc;
             width: 500px;
-            background: #eee;
+
         }
 
         div.form-element {
@@ -181,7 +162,10 @@ if (isset($_POST["username"])) {
     $pass = $_POST["password"];
     $login=$dbo->getUser($user,$pass);
 }
-
+//if isset para cambiar los botones main cuando estas logeado a cerrar sesion
+//if isset para comentarios
+//tabla intermedia user y movies que guarda el id movie id user y comentarios
+//details mostrar comentarios
 ?>
 </body>
 </html>

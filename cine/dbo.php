@@ -13,7 +13,7 @@ class dbo extends mysqli
 
     protected string $hostname = "localhost";
     protected string $username = "root";
-    protected string $password = "Pascal.69";
+    protected string $password = "admin";
     protected string $database = "db_movies";
 
     //Conexion
@@ -130,11 +130,11 @@ class dbo extends mysqli
         if ($query->num_rows > 0) {
             while ($result = $query->fetch_assoc()) {
 
-               if($result["nameUser"]==$user){
-                   echo "Este Usuario ya existe.";
-               } else{
-                   echo "Este email ya existe.";
-               }
+                if($result["nameUser"]==$user){
+                    echo "<p>Este Usuario ya existe.</p>";
+                } else{
+                    echo "<p>Este email ya existe.</p>";
+                }
             }
 
         } else {
@@ -146,9 +146,9 @@ class dbo extends mysqli
             $query = $this->query($sql);
 
             if ($query === TRUE) {
-                echo "Registro completado <br>";
+                echo "<p>Registro completado.</p><br>";
             } else {
-                echo "Error: " . $sql . "<br>" . $this->error;
+                echo "<p> Error: " . $sql . "<br>" . $this->error."</p>";
             }
 
         }
@@ -163,11 +163,12 @@ class dbo extends mysqli
         if ($query->num_rows > 0) {
             while ($result = $query->fetch_assoc()) {
                 if($result["nameUser"]==$user && hash_equals($result["passUser"],crypt($pass,$result["passUser"]))){
-                    echo "Bienvenido ".$user;
+                    echo "<p> Bienvenido ".$user.".</p>";
+                    $_SESSION["userId"]=$result["idUser"];
                 }elseif ($result["nameUser"]!=$user){
-                    echo "El Usuario no existe";
+                    echo "<p>El Usuario no existe.</p>";
                 }else{
-                    echo "Contraseña incorrecta";
+                    echo "<p>Contraseña incorrecta.</p>";
                 }
             }
             //echo "Bienvenido ".$user;

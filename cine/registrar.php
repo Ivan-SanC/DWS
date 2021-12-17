@@ -25,7 +25,7 @@ $dbo = new dbo();
             --gradient: linear-gradient(to left top, #c424dd 10%, #5653b7 90%) !important;
         }
 
-        body {
+        body{
             background: #222222 !important;
             margin: 50px auto;
             text-align: center;
@@ -33,12 +33,12 @@ $dbo = new dbo();
 
         }
 
-        .custom.boton{
+        .boton, .formReg {
             border: 5px solid;
             border-image-slice: 1;
             background: var(--gradient) !important;
             -webkit-background-clip: text !important;
-            -webkit-text-fill-color: antiquewhite !important;
+            -webkit-text-fill-color: antiquewhite;
             border-image-source: var(--gradient) !important;
             text-decoration: none;
             transition: all .4s ease;
@@ -49,7 +49,7 @@ $dbo = new dbo();
             -webkit-background-clip: initial !important;
             -webkit-text-fill-color: antiquewhite !important;
             border: 5px solid #5653b7 !important;
-            box-shadow: #222222 1px 0 10px;
+            box-shadow: #222 1px 0 10px;
             text-decoration: none;
         }
 
@@ -78,50 +78,29 @@ $dbo = new dbo();
         }
 
         p {
-            color: antiquewhite;
+            color: antiquewhite
         }
 
-        .boton, {
-            height: 35px;
-        }
-
-        form {
-            margin-left: 30px;
-        }
-
-
-        .form-element {
-            margin-bottom: 5px;
-        }
 
         /*log*/
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
 
         label {
             width: 150px;
             display: inline-block;
             font-size: 1.5rem;
             font-family: 'Lato';
-
-        }
-        .formReg{
-            background: #222222;
-
-            border: 1px solid #c424dd;
-            color: antiquewhite;
-            margin-bottom: 2rem;
         }
 
         input {
-            border: 2px solid #ccc;
             font-size: 1.5rem;
             font-weight: 100;
             font-family: 'Lato';
+            background: #222;
             padding: 10px;
+            border: 5px solid;
+            border-image-slice: 1;
+            -webkit-background-clip: text !important;
+            border-image-source: var(--gradient) !important;
         }
 
         form {
@@ -133,7 +112,6 @@ $dbo = new dbo();
 
         div.form-element {
             margin: 20px 0;
-            color: antiquewhite;
         }
 
         button {
@@ -162,15 +140,15 @@ $dbo = new dbo();
     <h3>Registro</h3>
     <form class="formReg" action="registrar.php" method="post">
         <div class="form-element">
-            <label>Email </label>
+            <label>Email: </label>
             <input type="email" name="email" required/>
         </div>
         <div class="form-element">
-            <label>Username </label>
+            <label>Username: </label>
             <input type="text" name="username" pattern="[a-zA-Z0-9]+" required/>
         </div>
         <div class="form-element">
-            <label>Password </label>
+            <label>Password: </label>
             <input type="password" name="password" required/>
         </div>
         <button class="boton" type="submit">Register</button>
