@@ -26,7 +26,7 @@ $dbo = new dbo();
             --gradient: linear-gradient(to left top, #c424dd 10%, #5653b7 90%) !important;
         }
 
-        body{
+        body {
             background: #222222 !important;
             margin: 50px auto;
             text-align: center;
@@ -122,13 +122,6 @@ $dbo = new dbo();
             font-weight: 100;
         }
 
-        p.error {
-            color: white;
-            font-family: lato;
-            display: inline-block;
-            padding: 2px 10px;
-            background: orangered;
-        }
 
     </style>
 
@@ -161,11 +154,11 @@ if (isset($_POST["email"])) {
     $email = $_POST["email"];
     $user = $_POST["username"];
     $pass = $_POST["password"];
-    $userPass = crypt($pass,$pass);
+    $userPass = crypt($pass, $pass);
     $registrar = $dbo->registrarUser($user, $userPass, $email);
-    if($registrar){
-        $_SESSION["userId"]=$registrar;
-        echo "<script>alert('Bienvenido ".$user."');window.location.href='main.php';</script>";
+    if ($registrar) {
+        $_SESSION["userId"] = $registrar;
+        echo "<script>alert('Bienvenido " . $user . "');window.location.href='main.php';</script>";
     }
 }
 ?>

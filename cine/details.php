@@ -3,15 +3,21 @@ include_once "author.php";
 include_once "genreNew.php";
 include_once "movie.php";
 include_once "dbo.php";
+include_once "comment.php";
 
+session_start();
 $dbo = new dbo();
 
 //crea la pelicula que hemos seleccionado en la pagina main
 if (isset($_GET["id"])) {
     $movie = $dbo->getMovie($_GET["id"]);
+    $datos = $dbo->getComments($_GET["id"]);
+    $_SESSION["movie"] = $_GET["id"];
 } else {
-    die("NO ID SELECTED");
+    die(header('Location: main.php'));
+
 }
+
 ?>
 <html>
 <head>
@@ -25,8 +31,37 @@ if (isset($_GET["id"])) {
 
     <style>
 
+        :root {
+            --gradient: linear-gradient(to left top, #c424dd 10%, #5653b7 90%) !important;
+        }
+
         body {
             background-color: #222222;
+        }
+
+        .boton {
+            border: 5px solid;
+            border-image-slice: 1;
+            background: var(--gradient) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            border-image-source: var(--gradient) !important;
+            text-decoration: none;
+            transition: all .4s ease;
+            height: 35px;
+        }
+
+        .boton:hover, .boton:focus {
+            background: var(--gradient) !important;
+            -webkit-background-clip: initial !important;
+            -webkit-text-fill-color: antiquewhite !important;
+            border: 5px solid #5653b7 !important;
+            box-shadow: #222 1px 0 10px;
+            text-decoration: none;
+        }
+
+        .btnbox {
+            text-align: right;
         }
 
         h1 {
@@ -50,7 +85,22 @@ if (isset($_GET["id"])) {
             color: antiquewhite;
         }
 
+        .article-box {
+            padding: 10px;
+            background-color: #3d3d3d;
+        }
 
+        .article-text {
+            margin: 5px;
+            padding: 10px;
+            background: #222222;
+        }
+
+        .article-box > h2, .article-text > p {
+            margin: 4px;
+            font-size: 90%;
+            color: antiquewhite;
+        }
     </style>
 
     <title>Only Movies!</title>
@@ -65,20 +115,44 @@ if (isset($_GET["id"])) {
 
 <!--RENDERIZADO-->
 
+<div class="container-fluid">
+
+    <div class="btnbox">
+        <?php if (isset($_SESSION["userId"])) { ?>
+
+            <button class="boton" onclick="location.href='close.php'">Cerrar sesión</button>
+
+        <?php } else { ?>
+
+            <button class="boton" onclick="location.href='login.php'">Iniciar sesión</button>
+            <button class="boton" onclick="location.href='registrar.php'">Registro</button>
+
+        <?php } ?>
+
+    </div>
+</div>
+
 <div class="container-fluid mt-2">
     <div class="row">
         <div class="col col-2 m-5">
+
             <img src="<?php echo $movie->getImgMovie(); ?>" alt="front" width="360" height="460">
+
         </div>
 
         <div class="col col-4 m-5">
+
             <iframe width="970" height="460" src="<?php echo $movie->getTrailerMovie(); ?>"
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
+
         </div>
+
         <div class="row ">
+
             <div class="col col-9 mx-5">
+
                 <h3><?php echo $movie->getNameMovie() . " (" . $movie->getYearMovie() . ")"; ?> </h3>
                 <h5>Generos:
                     <?php foreach ($movie->getGenres() as $mGenre) { ?>
@@ -89,15 +163,46 @@ if (isset($_GET["id"])) {
                 <h5> Duración: <?php echo $movie->getDurationMovie(); ?> min. </h5>
                 <h5> Director: <?php echo $movie->getAuthor()->getNameAuthor(); ?> </h5>
                 <h5>Descripción: <?php echo $movie->getDescription(); ?> </h5>
-            </div>
-        </div>
 
+            </div>
+
+        </div>
 
     </div>
 
-
 </div>
 
+<!--comentarios-->
+
+<div class="container-fluid mt-2">
+    <div class="comment-box mt-4 mx-5">
+        <h3>Comentarios</h3>
+        <article class="article-box mb-5">
+            <?php foreach ($datos as $dato) { ?>
+                <h2><?php echo $dato->getNameUser(); ?> comentó:</h2>
+                <article class="article-text">
+                    <p><?php echo $dato->getComment(); ?></p>
+                </article>
+            <?php } ?>
+        </article>
+    </div>
+
+    <?php
+    //boton con value 1 insert en db userId solo 1 like mandar a formComent
+    // getlike hacer suma de la columna likes where idMovie
+
+    //Formulario comentarios
+    if (isset($_SESSION["userId"])) { ?>
+    <form class="formLog mx-5" method="post" action="formComent.php">
+        <div class="form-element">
+            <textarea name="comentario" placeholder="Danos tu opinión..." rows="5" cols="80" maxlength="255"
+                      required></textarea>
+        </div>
+        <button class="boton mt-1" type="submit">Enviar</button>
+    </form>
+</div>
+
+<?php } ?>
 
 </body>
 </html>

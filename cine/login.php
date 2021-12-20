@@ -26,7 +26,7 @@ $dbo = new dbo();
             --gradient: linear-gradient(to left top, #c424dd 10%, #5653b7 90%) !important;
         }
 
-        body{
+        body {
             background: #222222 !important;
             margin: 50px auto;
             text-align: center;
@@ -123,14 +123,6 @@ $dbo = new dbo();
             font-weight: 100;
         }
 
-        p.error {
-            color: white;
-            font-family: lato;
-            display: inline-block;
-            padding: 2px 10px;
-            background: orangered;
-        }
-
     </style>
 
 </head>
@@ -160,10 +152,10 @@ $dbo = new dbo();
 if (isset($_POST["username"])) {
     $user = $_POST["username"];
     $pass = $_POST["password"];
-    $login=$dbo->getUser($user,$pass);
-    if($login){
-        $_SESSION["userId"]=$login;
-        echo "<script>alert('Bienvenido ".$user."');window.location.href='main.php';</script>";
+    $login = $dbo->getUser($user, $pass);
+    if ($login) {
+        $_SESSION["userId"] = $login;
+        echo "<script>alert('Bienvenido " . $user . "');window.location.href='main.php';</script>";
     }
 }
 //if isset para cambiar los botones main cuando estas logeado a cerrar sesion

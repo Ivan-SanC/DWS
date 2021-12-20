@@ -2,6 +2,8 @@
 include_once "author.php";
 include_once "genreNew.php";
 include_once "movie.php";
+include_once "comment.php";
+
 
 
 class dbo extends mysqli
@@ -53,7 +55,7 @@ class dbo extends mysqli
         $this->close();
         $objGenre = array();
         while ($result = $query->fetch_assoc()) {
-            //duda con idMovie $this->getMovie($result["idMovies"])
+
             $objGenre[] = new genreNew($result["idGenre"], $result["nameGenre"]);
         }
         return $objGenre;
@@ -104,7 +106,7 @@ class dbo extends mysqli
         return $array;
     }
 
-    //order by rating year
+    //Sort by year, rating and duration
     public function sortMovies($sort)
     {
         $sql = "SELECT * FROM table_movies ORDER BY " . $sort;
@@ -121,7 +123,7 @@ class dbo extends mysqli
         return $objMovies;
     }
 
-    //Registro
+    //Register
     public function registrarUser($user, $userPass, $email)
     {
         $sql = 'SELECT * FROM table_users WHERE emailUser="' . $email . '" OR nameUser="' . $user . '"';
@@ -130,10 +132,10 @@ class dbo extends mysqli
         if ($query->num_rows > 0) {
             while ($result = $query->fetch_assoc()) {
 
-                if($result["nameUser"]==$user){
-                    echo "<p>Este Usuario ya existe.</p>";
-                } else{
-                    echo "<p>Este email ya existe.</p>";
+                if ($result["nameUser"] == $user) {
+                    echo "<script>alert('Este usuario ya existe.') </script> ";
+                } else {
+                    echo "<script>alert('El email ya está en uso.') </script> ";
                 }
             }
 
@@ -146,12 +148,12 @@ class dbo extends mysqli
             $query = $this->query($sql);
 
             if ($query === TRUE) {
-                $sql="SELECT * FROM table_users WHERE nameUser= '$user'";
+                $sql = "SELECT * FROM table_users WHERE nameUser= '$user'";
                 $this->default();
                 $query = $this->query($sql);
                 $this->close();
                 $result = $query->fetch_assoc();
-                $idUser=$result["idUser"];
+                $idUser = $result["idUser"];
                 return $idUser;
 
             }
@@ -160,9 +162,10 @@ class dbo extends mysqli
 
     }
 
+    //Login
     public function getUser($user, $pass)
     {
-        $sql="SELECT * FROM table_users WHERE nameUser= '$user'";
+        $sql = "SELECT * FROM table_users WHERE nameUser= '$user'";
         $this->default();
         $query = $this->query($sql);
 
@@ -170,21 +173,41 @@ class dbo extends mysqli
 
             while ($result = $query->fetch_assoc()) {
 
-                if($result["nameUser"]==$user && hash_equals($result["passUser"],crypt($pass,$result["passUser"]))){
-                    $idUser=$result["idUser"];
+                if ($result["nameUser"] == $user && hash_equals($result["passUser"], crypt($pass, $result["passUser"]))) {
+                    $idUser = $result["idUser"];
                     return $idUser;
 
-                }elseif ($result["nameUser"]!=$user){
-                    echo "<p>El Usuario no existe.</p>";
-
-                }else{
-                    echo "<p>Contraseña incorrecta.</p>";
+                } else {
+                    echo "<script>alert('Contraseña incorrecta.') </script> ";
                 }
             }
 
         } else {
-            echo "El usuario no existe. <br>";
+            echo "<script>alert('El usuario no existe.') </script> ";
         }
         $this->close();
+    }
+
+    //Comentarios
+    public function insertComments($idUser,$idMovie, $comment)
+    {
+        $sql = "INSERT INTO table_comments (idUser,idMovie, comment) VALUES('".$idUser."','".$idMovie."','".$comment."')";
+        $this->default();
+        $this->query($sql);
+        $this->close();
+
+    }
+
+    //Pasamos el id de la pelicula y muestra todos los comentarios con el name del usuario y ordenados
+    public function getComments($idMovie){
+        $sql="SELECT c.comment, u.nameUser FROM table_comments as c INNER JOIN table_users as u ON c.idUser=u.idUser WHERE c.idMovie=".$idMovie." ORDER BY idComment DESC";
+        $this->default();
+        $query = $this->query($sql);
+        $this->close();
+        $objComments = array();
+        while ($result = $query->fetch_assoc()) {
+            $objComments[]=new comment($result["nameUser"],$result["comment"]);
+        }
+        return $objComments;
     }
 }

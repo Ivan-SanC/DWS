@@ -123,7 +123,7 @@ $userPass = "";
             margin-left: 30px;
         }
 
-        .btnbox{
+        .btnbox {
             text-align: right;
         }
 
@@ -140,17 +140,18 @@ $userPass = "";
 
 <div class="container-fluid">
 
+    <!--Session para verificar si esta logeado o no-->
     <div class="btnbox">
-        <?php if (isset($_SESSION["userId"])){ ?>
+        <?php if (isset($_SESSION["userId"])) { ?>
             <button class="boton" onclick="location.href='close.php'">Cerrar sesión</button>
-        <?php }else{ ?>
+        <?php } else { ?>
             <button class="boton" onclick="location.href='login.php'">Iniciar sesión</button>
             <button class="boton" onclick="location.href='registrar.php'">Registro</button>
 
         <?php } ?>
     </div>
 
-    <!--FORMULARIO PARA FILTRAR POR GENEROS y ORDENAR POR VALORACION Y POR AÑO-->
+    <!--FORMULARIO PARA FILTRAR POR GENEROS y ORDENAR POR VALORACION, POR AÑO Y DURACION -->
     <form action="main.php" method="post">
 
         <select class="selection" name="genres">
@@ -227,6 +228,8 @@ $userPass = "";
                                             Valoración: <?php echo $movie->getRatingMovie(); ?></h6>
                                         <h6 class="card-subtitle mb-2 text-muted">
                                             Año: <?php echo $movie->getYearMovie(); ?></h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                            Duración: <?php echo $movie->getDurationMovie(); ?> min</h6>
                                         <a href="details.php?id=<?php echo $movie->getIdMovie(); ?>" class="btn mr-2"
                                            target="_blank">
                                             <i class="fas fa-link"></i>
@@ -257,6 +260,8 @@ $userPass = "";
                                             Valoración: <?php echo $movie->getRatingMovie(); ?></h6>
                                         <h6 class="card-subtitle mb-2 text-muted">
                                             Año: <?php echo $movie->getYearMovie(); ?></h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                            Duración: <?php echo $movie->getDurationMovie(); ?> min</h6>
                                         <a href="details.php?id=<?php echo $movie->getIdMovie(); ?>" class="btn mr-2"
                                            target="_blank">
                                             <i class="fas fa-link"></i>
@@ -293,6 +298,8 @@ $userPass = "";
                                 Valoración: <?php echo $movie->getRatingMovie(); ?></h6>
                             <h6 class="card-subtitle mb-2 text-muted">
                                 Año: <?php echo $movie->getYearMovie(); ?></h6>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                Duración: <?php echo $movie->getDurationMovie(); ?> min</h6>
                             <a href="details.php?id=<?php echo $movie->getIdMovie(); ?>" class="btn mr-2"
                                target="_blank">
                                 <i class="fas fa-link"></i>
