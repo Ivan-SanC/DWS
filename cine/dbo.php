@@ -210,4 +210,24 @@ class dbo extends mysqli
         }
         return $objComments;
     }
+
+    public function validaUserId($idMovie){
+        $sql="SELECT idUser FROM tabler_likes WHERE idMovie=".$idMovie;
+        $this->default();
+        $query=$this->query($sql);
+        $this->close();
+        if($query===true){
+            return true;
+        }
+    }
+
+    public function  insertLike($idUser, $idMovie){
+        if ($this->validaUserId($idMovie)==false){
+            $sql="INSERT INTO table_likes (idUser, idMovie,like) VALUES ('".$idUser."','".$idMovie."','1')";
+            $this->default();
+            $this->query($sql);
+            $this->close();
+        }
+    }
+
 }

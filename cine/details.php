@@ -13,6 +13,7 @@ if (isset($_GET["id"])) {
     $movie = $dbo->getMovie($_GET["id"]);
     $datos = $dbo->getComments($_GET["id"]);
     $_SESSION["movie"] = $_GET["id"];
+    $validarLike=$dbo->validaUserId($_GET["id"]);
 } else {
     die(header('Location: main.php'));
 
@@ -153,7 +154,17 @@ if (isset($_GET["id"])) {
 
             <div class="col col-9 mx-5">
 
-                <h3><?php echo $movie->getNameMovie() . " (" . $movie->getYearMovie() . ")"; ?> </h3>
+                <h3>
+                    <?php echo $movie->getNameMovie() . " (" . $movie->getYearMovie() . ")";
+
+                    if (isset($_SESSION["userId"]) && !$validarLike) { ?>
+                        <form method="post" action="formComent.php">
+                            <button name="like" value="1" type="submit">Like</button>
+                        </form>
+                    <?php } ?>
+
+                </h3>
+
                 <h5>Generos:
                     <?php foreach ($movie->getGenres() as $mGenre) { ?>
                         <?php echo "&nbsp;" . $mGenre->getNameGenre(); ?>
