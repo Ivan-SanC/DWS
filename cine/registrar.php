@@ -155,7 +155,11 @@ if (isset($_POST["email"])) {
     $user = $_POST["username"];
     $pass = $_POST["password"];
     //esta hecho asi para evitar problemas en casa
-    $userPass = crypt($pass, $pass);
+    try {
+        $userPass = crypt($pass, bin2hex(random_bytes(22)));
+    } catch (Exception $e) {
+        $userPass = crypt($pass, "salt");
+    }
     $registrar = $dbo->registrarUser($user, $userPass, $email);
     if ($registrar) {
         $_SESSION["userId"] = $registrar;
