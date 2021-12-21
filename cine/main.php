@@ -23,7 +23,6 @@ $userPass = "";
 //filter generos, director group by;
 //buscador?
 //login cryp() para hacer comentarios
-//modal para el login boton y sale ventana
 //https://code.tutsplus.com/es/tutorials/create-a-php-login-form--cms-33261
 //session start cuando se valida el login
 

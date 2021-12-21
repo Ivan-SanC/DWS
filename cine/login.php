@@ -161,7 +161,7 @@ if (isset($_POST["username"])) {
 //if isset para cambiar los botones main cuando estas logeado a cerrar sesion
 //if isset para comentarios
 //tabla intermedia user y movies que guarda el id movie id user y comentarios
-//details mostrar comentarios login registro y valoracion
+//details mostrar comentarios login registro y like
 ?>
 </body>
 </html>

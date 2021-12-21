@@ -197,7 +197,7 @@ class dbo extends mysqli
 
     }
 
-    //Pasamos el id de la pelicula y muestra todos los comentarios con el name del usuario y ordenados
+    //Pasamos el id de la pelicula y muestra todos los comentarios con el name del usuario y ordenados de mas reciente a mas antiguo
     public function getComments($idMovie)
     {
         $sql = "SELECT c.comment, u.nameUser FROM table_comments as c INNER JOIN table_users as u ON c.idUser=u.idUser WHERE c.idMovie=" . $idMovie . " ORDER BY idComment DESC";
@@ -211,6 +211,7 @@ class dbo extends mysqli
         return $objComments;
     }
 
+    //comprueba que user no hay dado like
     public function validaUserId($idUser, $idMovie)
     {
         $sql = "SELECT idUser FROM table_likes WHERE idMovie='" . $idMovie . "' AND idUser='" . $idUser . "'";
@@ -224,6 +225,7 @@ class dbo extends mysqli
         }
     }
 
+    //Inserta Like en la db
     public function insertLike($idUser, $idMovie)
     {
         if ($this->validaUserId($idUser, $idMovie) == false) {
@@ -234,6 +236,7 @@ class dbo extends mysqli
         }
     }
 
+    //Suma y recoge todos los likes
     public function getLikes($idMovie)
     {
         $sql = "SELECT SUM(likes) FROM table_likes WHERE idMovie=" . $idMovie;

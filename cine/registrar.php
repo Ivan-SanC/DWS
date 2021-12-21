@@ -154,7 +154,6 @@ if (isset($_POST["email"])) {
     $email = $_POST["email"];
     $user = $_POST["username"];
     $pass = $_POST["password"];
-    //esta hecho asi para evitar problemas en casa
     try {
         $userPass = crypt($pass, bin2hex(random_bytes(22)));
     } catch (Exception $e) {
