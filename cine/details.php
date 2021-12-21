@@ -13,7 +13,7 @@ if (isset($_GET["id"])) {
     $movie = $dbo->getMovie($_GET["id"]);
     $datos = $dbo->getComments($_GET["id"]);
     $_SESSION["movie"] = $_GET["id"];
-    $validarLike=$dbo->validaUserId($_GET["id"]);
+    $validarLike = $dbo->validaUserId($_SESSION["userId"], $_SESSION["movie"]);
 } else {
     die(header('Location: main.php'));
 
@@ -157,23 +157,24 @@ if (isset($_GET["id"])) {
                 <h3>
                     <?php echo $movie->getNameMovie() . " (" . $movie->getYearMovie() . ")";
 
+
+
+                    echo "</h3>";
                     if (isset($_SESSION["userId"]) && !$validarLike) { ?>
                         <form method="post" action="formComent.php">
-                            <button name="like" value="1" type="submit">Like</button>
+                            <button  class="boton" name="like" value="1" type="submit">Like</button>
                         </form>
                     <?php } ?>
-
-                </h3>
-
-                <h5>Generos:
-                    <?php foreach ($movie->getGenres() as $mGenre) { ?>
-                        <?php echo "&nbsp;" . $mGenre->getNameGenre(); ?>
-                    <?php } ?>
-                </h5>
-                <h5>Valoración: <?php echo $movie->getRatingMovie(); ?> </h5>
-                <h5> Duración: <?php echo $movie->getDurationMovie(); ?> min. </h5>
-                <h5> Director: <?php echo $movie->getAuthor()->getNameAuthor(); ?> </h5>
-                <h5>Descripción: <?php echo $movie->getDescription(); ?> </h5>
+                    <h5>Generos:
+                        <?php foreach ($movie->getGenres() as $mGenre) { ?>
+                            <?php echo "&nbsp;" . $mGenre->getNameGenre(); ?>
+                        <?php } ?>
+                    </h5>
+                    <h5>Valoración: <?php echo $movie->getRatingMovie(); ?> </h5>
+                    <h5>Likes: <?php echo $dbo->getLikes($_SESSION["movie"]); ?></h5>
+                    <h5> Duración: <?php echo $movie->getDurationMovie(); ?> min. </h5>
+                    <h5> Director: <?php echo $movie->getAuthor()->getNameAuthor(); ?> </h5>
+                    <h5>Descripción: <?php echo $movie->getDescription(); ?> </h5>
 
             </div>
 

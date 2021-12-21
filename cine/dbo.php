@@ -5,7 +5,6 @@ include_once "movie.php";
 include_once "comment.php";
 
 
-
 class dbo extends mysqli
 {
     //protected string $hostname="sql480.main-hosting.eu";
@@ -189,9 +188,9 @@ class dbo extends mysqli
     }
 
     //Comentarios
-    public function insertComments($idUser,$idMovie, $comment)
+    public function insertComments($idUser, $idMovie, $comment)
     {
-        $sql = "INSERT INTO table_comments (idUser,idMovie, comment) VALUES('".$idUser."','".$idMovie."','".$comment."')";
+        $sql = "INSERT INTO table_comments (idUser,idMovie, comment) VALUES('" . $idUser . "','" . $idMovie . "','" . $comment . "')";
         $this->default();
         $this->query($sql);
         $this->close();
@@ -199,35 +198,55 @@ class dbo extends mysqli
     }
 
     //Pasamos el id de la pelicula y muestra todos los comentarios con el name del usuario y ordenados
-    public function getComments($idMovie){
-        $sql="SELECT c.comment, u.nameUser FROM table_comments as c INNER JOIN table_users as u ON c.idUser=u.idUser WHERE c.idMovie=".$idMovie." ORDER BY idComment DESC";
+    public function getComments($idMovie)
+    {
+        $sql = "SELECT c.comment, u.nameUser FROM table_comments as c INNER JOIN table_users as u ON c.idUser=u.idUser WHERE c.idMovie=" . $idMovie . " ORDER BY idComment DESC";
         $this->default();
         $query = $this->query($sql);
         $this->close();
         $objComments = array();
         while ($result = $query->fetch_assoc()) {
-            $objComments[]=new comment($result["nameUser"],$result["comment"]);
+            $objComments[] = new comment($result["nameUser"], $result["comment"]);
         }
         return $objComments;
     }
 
-    public function validaUserId($idMovie){
-        $sql="SELECT idUser FROM tabler_likes WHERE idMovie=".$idMovie;
+    public function validaUserId($idUser, $idMovie)
+    {
+        $sql = "SELECT idUser FROM table_likes WHERE idMovie='" . $idMovie . "' AND idUser='" . $idUser . "'";
         $this->default();
-        $query=$this->query($sql);
+        $query = $this->query($sql);
         $this->close();
-        if($query===true){
+        if ($query->num_rows > 0) {
             return true;
+        } else {
+            return false;
         }
     }
 
-    public function  insertLike($idUser, $idMovie){
-        if ($this->validaUserId($idMovie)==false){
-            $sql="INSERT INTO table_likes (idUser, idMovie,like) VALUES ('".$idUser."','".$idMovie."','1')";
+    public function insertLike($idUser, $idMovie)
+    {
+        if ($this->validaUserId($idUser, $idMovie) == false) {
+            $sql = "INSERT INTO table_likes (idUser, idMovie,likes) VALUES ('" . $idUser . "','" . $idMovie . "','1')";
             $this->default();
             $this->query($sql);
             $this->close();
         }
     }
+
+    public function getLikes($idMovie)
+    {
+        $sql = "SELECT SUM(likes) FROM table_likes WHERE idMovie=" . $idMovie;
+        $this->default();
+        $query = $this->query($sql);
+        $this->close();
+        $result = $query->fetch_assoc();
+        $likes = $result["SUM(likes)"];
+        if ($likes == null) {
+            $likes = 0;
+        }
+        return $likes;
+    }
+
 
 }
