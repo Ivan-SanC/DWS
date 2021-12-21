@@ -1,6 +1,5 @@
 <?php
 include_once "author.php";
-include_once "genre.php";
 
 
 class movie
