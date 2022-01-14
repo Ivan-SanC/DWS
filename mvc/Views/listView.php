@@ -31,18 +31,19 @@
 <section class="search-box">
     <?php foreach ($hotels as $hotel) { ?>
         <div class="container p-5 my-5 border">
-
-
+            <div class="col 3">
             <a href="singleHotel.php?id=<?php echo $hotel->getIdHotel(); ?>">
                 <h2><?php echo $hotel->getNameHotel(); ?></h2>
             </a>
+        </div>
+        <div class="col 6"></div>
             <p><?php echo $hotel->getStarsHotel(); ?></p>
             <p><?php echo $hotel->getCity()->getNameCity(); ?></p>
             <p><?php echo $hotel->getDescription(); ?></p>
             <a href="singleHotel.php?id=<?php echo $hotel->getIdHotel(); ?>">
                 <img class="d-flex align-self-start" src="<?php echo $hotel->getSources()[0]->getUrl(); ?>">
             </a>
-
+        </div>
         </div>
     <?php } ?>
 
