@@ -1,6 +1,6 @@
 <?php
 
-class dbo
+class dbo extends mysqli
 {
     protected string $hostname = "localhost";
     protected string $username = "root";
