@@ -4,7 +4,7 @@ class hotel
 {
     protected int $idHotel;
     protected string $nameHotel;
-    protected int $starsHotel;
+    protected string $starsHotel;
     protected country $country;
     protected state $state;
     protected city $city;
@@ -14,13 +14,11 @@ class hotel
     protected array $sources;
     protected array $services;
     // protected int $rating;
-    // protected array $comment;
-
-
+    // protected comment $comment;//objeto o array?
     /**
      * @param int $idHotel
      * @param string $nameHotel
-     * @param int $starsHotel
+     * @param string $starsHotel
      * @param country $country
      * @param state $state
      * @param city $city
@@ -30,8 +28,7 @@ class hotel
      * @param array $sources
      * @param array $services
      */
-
-    public function __construct(int $idHotel, string $nameHotel, int $starsHotel, country $country, state $state, city $city, neighbor $neighbor, neighbor $zip, string $description, array $sources, array $services)
+    public function __construct(int $idHotel, string $nameHotel, string $starsHotel, country $country, state $state, city $city, neighbor $neighbor, neighbor $zip, string $description, array $sources, array $services)
     {
         $this->idHotel = $idHotel;
         $this->nameHotel = $nameHotel;
@@ -63,9 +60,9 @@ class hotel
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getStarsHotel(): int
+    public function getStarsHotel(): string
     {
         return $this->starsHotel;
     }

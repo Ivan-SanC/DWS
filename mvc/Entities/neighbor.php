@@ -4,14 +4,14 @@ class neighbor
 {
     protected int $idNeighbor;
     protected string $nameNeighbor;
-    protected int   $zip;
+    protected string   $zip;
 
     /**
      * @param int $idNeighbor
      * @param string $nameNeighbor
-     * @param int $zip
+     * @param string $zip
      */
-    public function __construct(int $idNeighbor, string $nameNeighbor, int $zip)
+    public function __construct(int $idNeighbor, string $nameNeighbor, string $zip)
     {
         $this->idNeighbor = $idNeighbor;
         $this->nameNeighbor = $nameNeighbor;
@@ -35,9 +35,9 @@ class neighbor
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getZip(): int
+    public function getZip(): string
     {
         return $this->zip;
     }

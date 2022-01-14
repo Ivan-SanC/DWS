@@ -8,7 +8,6 @@ class source
 
 
     /**
-     * @param int $idSource
      * @param int $idHotel
      * @param string $url
      */
