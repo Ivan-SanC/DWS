@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Ebooking</title>
     <meta charset="utf-8">
@@ -8,45 +8,55 @@
 
     <style>
         body {
-            background-color: cornflowerblue;
+            background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%)
         }
 
         a {
             text-decoration: none
         }
-        img{
-            width: 270px;
-            height: 270px;
+
+        img {
+            width: 420px;
+            height: 310px;
         }
+        h1, h2, a{
+            color: #111111;
+        }
+
     </style>
 
 </head>
 <body>
 <section class="head">
-    <div class="container">
-        <h1 class="text-center"><span><a href="list.php">Ebooking</a></span></h1>
+    <div class="container mb-5">
+        <a href="list.php"><h1 class="text-center">Ebooking</h1></a>
     </div>
 </section>
-<div class="clearfix"></div>
+
 <section class="search-box">
     <?php foreach ($hotels as $hotel) { ?>
-        <div class="container p-5 my-5 border">
-            <div class="col 3">
-            <a href="singleHotel.php?id=<?php echo $hotel->getIdHotel(); ?>">
-                <h2><?php echo $hotel->getNameHotel(); ?></h2>
-            </a>
-        </div>
-        <div class="col 6"></div>
-            <p><?php echo $hotel->getStarsHotel(); ?></p>
-            <p><?php echo $hotel->getCity()->getNameCity(); ?></p>
-            <p><?php echo $hotel->getDescription(); ?></p>
-            <a href="singleHotel.php?id=<?php echo $hotel->getIdHotel(); ?>">
-                <img class="d-flex align-self-start" src="<?php echo $hotel->getSources()[0]->getUrl(); ?>">
-            </a>
-        </div>
+        <div class="container mb-5 border">
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="singleHotel.php?id=<?php echo $hotel->getIdHotel(); ?>">
+                        <img class="d-flex align-self-start" src="<?php echo $hotel->getSources()[0]->getUrl(); ?>">
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="singleHotel.php?id=<?php echo $hotel->getIdHotel(); ?>">
+                        <h2><?php echo $hotel->getNameHotel(); ?></h2>
+                    </a>
+
+                    <div class="media-body pl-3">
+                        <p><strong>Tipo: </strong><?php echo $hotel->getStarsHotel(); ?> &#11088;</p>
+                        <p><strong>Ciudad: </strong><?php echo $hotel->getCity()->getNameCity(); ?></p>
+                        <p><strong>Descripción:</strong> <?php echo $hotel->getDescription(); ?></p>
+                    </div>
+                </div>
+            </div>
         </div>
     <?php } ?>
-
 </section>
 </body>
 </html>
