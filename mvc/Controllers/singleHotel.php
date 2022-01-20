@@ -1,6 +1,8 @@
 <?php
 require_once "../Models/singleModel.php";
 
+session_start();
+
 $model= new singleModel();
 
 if(isset($_GET["id"])){
@@ -11,5 +13,3 @@ if(isset($_GET["id"])){
 
 
 require_once "../Views/singleHotelView.php";
-
-?>
