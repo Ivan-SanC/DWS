@@ -19,8 +19,16 @@
             width: 420px;
             height: 310px;
         }
-        h1, h2, a{
-            color: #111111;
+        h1 {
+            margin-top: 10px;
+            font-size: 70px;
+            color: antiquewhite;
+            text-align: center;
+            text-transform: none;
+        }
+
+        h2, a{
+            color: antiquewhite;
         }
 
     </style>
@@ -35,7 +43,7 @@
 
 <section class="search-box">
     <?php foreach ($hotels as $hotel) { ?>
-        <div class="container mb-5 border">
+        <div class="container mb-5 ps-0 border">
             <div class="row">
                 <div class="col-md-5">
                     <a href="singleHotel.php?id=<?php echo $hotel->getIdHotel(); ?>">

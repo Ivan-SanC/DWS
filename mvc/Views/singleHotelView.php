@@ -15,10 +15,19 @@
             text-decoration: none
         }
 
-        h1, h2, a {
-            color: #111111;
+        h2, a {
+            color: antiquewhite;
         }
-        img{
+
+        h1 {
+            margin-top: 10px;
+            font-size: 70px;
+            color: antiquewhite;
+            text-align: center;
+            text-transform: none;
+        }
+
+        img {
             width: 670px;
             height: 770px;
         }
@@ -46,10 +55,10 @@
 </section>
 <div class="clearfix"></div>
 <section class="search-box">
-    <div class="container p-5 my-5 ">
+    <div class="container p-5 my-5 border">
 
         <div class="name mb-5 text-center">
-            <h1><?php echo $hotel->getNameHotel(); ?> <span><?php echo $hotel->getStarsHotel(); ?> &#11088;</span></h1>
+            <h2><?php echo $hotel->getNameHotel(); ?> <span><?php echo $hotel->getStarsHotel(); ?> &#11088;</span></h2>
         </div>
 
         <div class="serv mb-5">
