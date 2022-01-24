@@ -2,7 +2,7 @@
 
 include_once "../Models/loginModel.php";
 session_start();
-$_SESSION["login"]=true;
+$_SESSION["login"]=false;
 
 if (isset($_POST["username"]) && isset($_POST["password"])) {
     $loginModel = new loginModel();
@@ -17,8 +17,11 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
 
     } else {
         if (isset($_POST["username"])) {
-            $_SESSION["login"]=true;
-            header("Location: login.php");
+           if($_POST["username"]!=$user->getNameUser()) {
+               header("Location: login.php?errorCode=1");
+           }elseif($_POST["username"]==$user->getNameUser() && $_POST["password"]!=$user->getPassUser()){
+               header("Location:login.php?errorCode=2");
+           }
         }
     }
 

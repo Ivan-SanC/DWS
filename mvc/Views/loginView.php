@@ -119,8 +119,10 @@
 <?php
 
 //Como sacar alert?
-if($_SESSION["login"]==true){ ?>
-    <script>alert("Hubo un error introduciendo los datos")</script>
+if($_GET["errorCode"]==1){ ?>
+    <script>alert("El usuario no es correcto")</script>
+<?php }elseif ($_GET["errorCode"]==2){?>
+    <script>alert("La contraseña no es valida")</script>
 <?php } ?>
 <div class="container mx-auto mt-4 custom">
     <h3>Login</h3>
