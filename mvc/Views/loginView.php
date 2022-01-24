@@ -116,6 +116,12 @@
 <a href="list.php">
     <h1>Ebooking</h1>
 </a>
+<?php
+
+//Como sacar alert?
+if($_SESSION["login"]==true){ ?>
+    <script>alert("Hubo un error introduciendo los datos")</script>
+<?php } ?>
 <div class="container mx-auto mt-4 custom">
     <h3>Login</h3>
     <form class="formLog" method="post" action="" name="signin-form">
@@ -131,6 +137,5 @@
     </form>
 </div>
 <p>No tienes cuenta?<a href="registrar.php"> Registrate aquí</a></p>
-
 </body>
 </html>

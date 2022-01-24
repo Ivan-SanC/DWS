@@ -7,6 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
+        :root {
+            --gradient: linear-gradient(to left top, #1b2354 10%, #3d3c6b 90%) !important;
+        }
+
         body {
             background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%)
         }
@@ -43,6 +47,25 @@
             height: 40px;
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
         }
+        .btn{
+            border: 5px solid;
+            border-image-slice: 1;
+            background: var(--gradient) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: antiquewhite;
+            border-image-source: var(--gradient) !important;
+            text-decoration: none;
+            transition: all .4s ease;
+        }
+
+        .btn:hover, .btn:focus {
+            background: var(--gradient) !important;
+            -webkit-background-clip: initial !important;
+            -webkit-text-fill-color: antiquewhite !important;
+            border: 5px solid #5653b7 !important;
+            box-shadow: #222 1px 0 10px;
+            text-decoration: none;
+        }
 
     </style>
 
@@ -51,6 +74,15 @@
 <section class="head">
     <div class="container">
         <a href="list.php"><h1 class="text-center">Ebooking</h1></a>
+
+        <div style="position: absolute; top: 10px; right: 10px">
+            <a href="../Controllers/login.php" class="btn" role="button">
+                Iniciar Sesión
+            </a>
+            <a href="../Controllers/register.php" class="btn" role="button">
+                Registrar
+            </a>
+        </div>
     </div>
 </section>
 <div class="clearfix"></div>

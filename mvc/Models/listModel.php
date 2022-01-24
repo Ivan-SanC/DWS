@@ -1,11 +1,12 @@
 <?php
-require_once "../Entities/city.php"; //
-require_once "../Entities/country.php"; //
+require_once "../Entities/city.php";
+require_once "../Entities/country.php";
 require_once "../Entities/hotel.php";
-require_once "../Entities/neighbor.php"; //
+require_once "../Entities/neighbor.php";
 require_once "../Entities/service.php";
-require_once "../Entities/source.php"; //
-require_once "../Entities/state.php"; //
+require_once "../Entities/source.php";
+require_once "../Entities/state.php";
+require_once "../Entities/user.php";
 require_once "../DB/dbo.php";
 
 

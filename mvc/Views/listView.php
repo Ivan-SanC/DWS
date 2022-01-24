@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
     <title>Ebooking</title>
     <meta charset="utf-8">
@@ -7,6 +7,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
+        :root {
+            --gradient: linear-gradient(to left top, #1b2354 10%, #3d3c6b 90%) !important;
+        }
         body {
             background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%)
         }
@@ -31,6 +34,25 @@
             color: antiquewhite;
         }
 
+        .btn{
+            border: 5px solid;
+            border-image-slice: 1;
+            background: var(--gradient) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: antiquewhite;
+            border-image-source: var(--gradient) !important;
+            text-decoration: none;
+            transition: all .4s ease;
+        }
+
+        .btn:hover, .btn:focus {
+            background: var(--gradient) !important;
+            -webkit-background-clip: initial !important;
+            -webkit-text-fill-color: antiquewhite !important;
+            border: 5px solid #5653b7 !important;
+            box-shadow: #222 1px 0 10px;
+            text-decoration: none;
+        }
     </style>
 
 </head>
@@ -38,7 +60,24 @@
 <section class="head">
     <div class="container mb-5">
         <a href="list.php"><h1 class="text-center">Ebooking</h1></a>
+
+        <div style="position: absolute; top: 10px; right: 10px">
+            <?php if (isset( $_SESSION["userName"])) { ?>
+                <h6 class="text-right"><span>Bienvenido: <?php echo  $_SESSION["userName"] ?></span></h6>
+                <a href="../Controllers/close.php" class="btn" role="button">
+                    Logout
+                </a>
+            <?php } else { ?>
+                <a href="../Controllers/login.php" class="btn" role="button">
+                    Iniciar Sesión
+                </a>
+                <a href="../Controllers/register.php" class="btn" role="button">
+                    Registrar
+                </a>
+            <?php } ?>
+        </div>
     </div>
+
 </section>
 
 <section class="search-box">
