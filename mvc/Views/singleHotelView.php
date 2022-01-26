@@ -19,7 +19,7 @@
             text-decoration: none
         }
 
-        h2, a {
+        h2, a, label {
             color: antiquewhite;
         }
 
@@ -47,7 +47,8 @@
             height: 40px;
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
         }
-        .btn{
+
+        .btn {
             border: 5px solid;
             border-image-slice: 1;
             background: var(--gradient) !important;
@@ -65,6 +66,10 @@
             border: 5px solid #5653b7 !important;
             box-shadow: #222 1px 0 10px;
             text-decoration: none;
+        }
+
+        .box {
+            background-image: linear-gradient(to right bottom, #4151a8 10%, #3d3c6b 90%)
         }
 
     </style>
@@ -87,6 +92,12 @@
 </section>
 <div class="clearfix"></div>
 <section class="search-box">
+    <div class="box container p-5 my-5 border">
+        <label for="start">Start date:</label>
+        <input type="date" id="start" name="trip-start"
+               value="2022-01-01"
+               min="2022-01-01" max="2023-12-31">
+    </div>
     <div class="container p-5 my-5 border">
 
         <div class="name mb-5 text-center">
@@ -131,5 +142,6 @@
     </div>
 
 </section>
+
 </body>
 </html>

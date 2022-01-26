@@ -104,6 +104,6 @@
             </div>
         </div>
     <?php } ?>
-</section>
+
 </body>
 </html>

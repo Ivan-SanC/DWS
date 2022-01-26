@@ -63,7 +63,7 @@ class countriesListModel
     }
 
     public function getOtherCountries($userId){
-        $sql="select * from countries where NOT UserId='".$userId."' or UserId is null;";
+        $sql="select * from countries where UserId != '".$userId."' or UserId is null;";
         $this->db->default();
         $query=$this->db->query("$sql");
         $this->db->close();
