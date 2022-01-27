@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $hotel ;
+ */
+
+?>
 <html>
 <head>
     <title>Ebooking</title>
@@ -92,11 +98,29 @@
 </section>
 <div class="clearfix"></div>
 <section class="search-box">
+
+
+    <!--Datepicker-->
     <div class="box container p-5 my-5 border">
-        <label for="start">Start date:</label>
-        <input type="date" id="start" name="trip-start"
-               value="2022-01-01"
-               min="2022-01-01" max="2023-12-31">
+        <form method="post">
+            <div class=" row">
+
+                <div class="date col-6 text-center">
+                    <label for="start">Entrada:</label>
+                    <input type="date" id="start" name="check-in"
+                           min="2022-01-01" max="2023-12-31">
+                </div>
+
+                <div class="date col-4 text-center">
+                    <label for="end">Salida:</label>
+                    <input type="date" id="end" name="check-out"
+                           min="2022-01-01" max="2023-12-31">
+                    <button class="boton" type="submit" name="submit">Enviar</button>
+                </div>
+
+
+            </div>
+        </form>
     </div>
     <div class="container p-5 my-5 border">
 

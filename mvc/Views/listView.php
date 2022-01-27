@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $hotels;
+ */
+?>
 <html>
 <head>
     <title>Ebooking</title>
