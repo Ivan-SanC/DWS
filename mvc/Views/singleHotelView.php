@@ -38,8 +38,8 @@
         }
 
         img {
-            width: 670px;
-            height: 770px;
+
+            height: 670px;
         }
 
         .carousel-control-prev-icon {
@@ -82,8 +82,12 @@
 
 </head>
 <body>
+<?php if($errorCode==1){
+    echo "<script>alert('No puedes elegir una fecha anterior al check-in')</script>";
+}
+?>
 <section class="head">
-    <div class="container">
+    <div class="container ">
         <a href="list.php"><h1 class="text-center">Ebooking</h1></a>
 
         <div style="position: absolute; top: 10px; right: 10px">
@@ -99,30 +103,29 @@
 <div class="clearfix"></div>
 <section class="search-box">
 
-
     <!--Datepicker-->
-    <div class="box container p-5 my-5 border">
+    <div class="box container pt-3 mt-5 border">
         <form method="post">
             <div class=" row">
 
                 <div class="date col-6 text-center">
                     <label for="start">Entrada:</label>
                     <input type="date" id="start" name="check-in"
-                           min="2022-01-01" max="2023-12-31">
+                           min="2022-01-01" max="2023-12-31" required>
                 </div>
 
                 <div class="date col-4 text-center">
                     <label for="end">Salida:</label>
                     <input type="date" id="end" name="check-out"
-                           min="2022-01-01" max="2023-12-31">
-                    <button class="boton" type="submit" name="submit">Enviar</button>
+                           min="2022-01-01" max="2023-12-31" required>
+                    <button class="boton" type="submit" name="submit">Reservar</button>
                 </div>
 
 
             </div>
         </form>
     </div>
-    <div class="container p-5 my-5 border">
+    <div class="container p-5 mb-5 border">
 
         <div class="name mb-5 text-center">
             <h2><?php echo $hotel->getNameHotel(); ?> <span><?php echo $hotel->getStarsHotel(); ?> &#11088;</span></h2>
@@ -141,6 +144,7 @@
                 <?php } ?>
             </p>
         </div>
+
         <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
 
@@ -149,15 +153,18 @@
                 </div>
                 <?php for ($i = 1; $i < count($hotel->getSources()); $i++) { ?>
                     <div class="carousel-item">
-                        <img src="<?php echo $hotel->getSources()[$i]->getUrl(); ?>" class="d-block w-100" alt="...">
+                        <img src="<?php echo $hotel->getSources()[$i]->getUrl(); ?>" class="d-block w-100"
+                             alt="...">
                     </div>
                 <?php } ?>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls"
+                    data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselControls"
+                    data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>

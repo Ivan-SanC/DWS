@@ -116,14 +116,15 @@
 <a href="list.php">
     <h1>Ebooking</h1>
 </a>
-<?php
 
-//Como sacar alert?
-if($_GET["errorCode"]==1){ ?>
-    <script>alert("El usuario no es correcto")</script>
-<?php }elseif ($_GET["errorCode"]==2){?>
-    <script>alert("La contraseña no es valida")</script>
-<?php } ?>
+<?php if($errorCode!=""){
+    if($errorCode==1){
+        echo "<script>alert('Contraseña incorrecta.') </script> ";
+    }elseif ($errorCode==2){
+        echo "<script>alert('Usuario incorrecto.') </script> ";
+    }
+
+}?>
 <div class="container mx-auto mt-4 custom">
     <h3>Login</h3>
     <form class="formLog" method="post" action="" name="signin-form">

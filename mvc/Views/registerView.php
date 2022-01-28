@@ -1,4 +1,8 @@
-
+<?php
+/**
+ * @var string $errorCode;
+ */
+?>
 <html>
 <head>
     <title>Ebooking</title>
@@ -18,7 +22,7 @@
             margin: 50px auto;
             text-align: center;
             width: 800px;
-            background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%)!important;
+            background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%) !important;
         }
 
         .boton, .formReg {
@@ -117,6 +121,17 @@
 <a href="list.php">
     <h1>Ebooking</h1>
 </a>
+<?php
+if($errorCode!=""){
+    if($errorCode==1) {
+        echo "<script>alert('Este email ya está en uso.')</script>";
+    }elseif ($errorCode==2){
+        echo "<script>alert('Este usuario ya existe.')</script>";
+    }elseif ($errorCode==3){
+        echo "<script>alert('Algo fallo en el registro...')</script>";
+    }
+}
+?>
 <div class="container mx-auto mt-4 custom">
     <h3>Registro</h3>
     <form class="formReg" action="register.php" method="post">
