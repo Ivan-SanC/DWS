@@ -219,8 +219,7 @@
     </div>
 
     <?php
-    //boton con value 1 insert en db userId solo 1 like mandar a formComent
-    // getlike hacer suma de la columna likes where idMovie
+
 
     //Formulario comentarios
     if (isset($_SESSION["userName"])) { ?>
