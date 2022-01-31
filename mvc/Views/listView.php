@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $hotels;
+ * @var array $hotels
  */
 ?>
 <html>
@@ -109,6 +109,6 @@
             </div>
         </div>
     <?php } ?>
-
+</section>
 </body>
 </html>

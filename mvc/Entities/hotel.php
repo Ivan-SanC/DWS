@@ -10,6 +10,8 @@ class hotel
     protected city $city;
     protected neighbor $neighbor;
     protected neighbor $zip;
+    protected int $rooms;
+    protected int $price;
     protected string $description;
     protected array $sources;
     protected array $services;
@@ -24,11 +26,13 @@ class hotel
      * @param city $city
      * @param neighbor $neighbor
      * @param neighbor $zip
+     * @param int $rooms
+     * @param int $price
      * @param string $description
      * @param array $sources
      * @param array $services
      */
-    public function __construct(int $idHotel, string $nameHotel, string $starsHotel, country $country, state $state, city $city, neighbor $neighbor, neighbor $zip, string $description, array $sources, array $services)
+    public function __construct(int $idHotel, string $nameHotel, string $starsHotel, country $country, state $state, city $city, neighbor $neighbor, neighbor $zip, int $rooms, int $price, string $description, array $sources, array $services)
     {
         $this->idHotel = $idHotel;
         $this->nameHotel = $nameHotel;
@@ -38,6 +42,8 @@ class hotel
         $this->city = $city;
         $this->neighbor = $neighbor;
         $this->zip = $zip;
+        $this->rooms = $rooms;
+        $this->price = $price;
         $this->description = $description;
         $this->sources = $sources;
         $this->services = $services;
@@ -108,6 +114,22 @@ class hotel
     }
 
     /**
+     * @return int
+     */
+    public function getRooms(): int
+    {
+        return $this->rooms;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    /**
      * @return string
      */
     public function getDescription(): string
@@ -130,6 +152,5 @@ class hotel
     {
         return $this->services;
     }
-
 
 }

@@ -3,8 +3,8 @@ require_once "../Models/registerModel.php";
 require_once "../Entities/user.php";
 session_start();
 
-
 $errorCode = "";
+
 if (isset($_GET["errorCode"])) {
     $errorCode = $_GET["errorCode"];
 }

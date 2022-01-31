@@ -1,8 +1,9 @@
 <?php
 /**
- * @var $hotel ;
+ * @var hotel $hotel ;
+ * @var string $errorCode;
+ * @var array $comments;
  */
-
 ?>
 <html>
 <head>
@@ -18,7 +19,7 @@
         }
 
         body {
-            background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%)
+            background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%);
         }
 
         a {
@@ -75,34 +76,63 @@
         }
 
         .box {
-            background-image: linear-gradient(to right bottom, #4151a8 10%, #3d3c6b 90%)
+            background-image: linear-gradient(to right bottom, #4151a8 10%, #3d3c6b 90%);
+        }
+        .article-box {
+            padding: 10px;
+            background: #52609b;
+
+        }
+
+        .article-text {
+            margin: 5px;
+            padding: 10px;
+            background: #7a87c2;
+        }
+
+        .article-box > h2, .article-text > p {
+            margin: 4px;
+            font-size: 90%;
+            color: antiquewhite;
         }
 
     </style>
 
 </head>
 <body>
-<?php if($errorCode==1){
-    echo "<script>alert('No puedes elegir una fecha anterior al check-in')</script>";
-}
-?>
 <section class="head">
-    <div class="container ">
+    <div class="container mb-5">
         <a href="list.php"><h1 class="text-center">Ebooking</h1></a>
 
         <div style="position: absolute; top: 10px; right: 10px">
-            <a href="../Controllers/login.php" class="btn" role="button">
-                Iniciar Sesión
-            </a>
-            <a href="../Controllers/register.php" class="btn" role="button">
-                Registrar
-            </a>
+            <?php if (isset($_SESSION["userName"])) { ?>
+                <h6 class="text-right"><span>Bienvenido: <?php echo $_SESSION["userName"] ?></span></h6>
+                <a href="../Controllers/close.php" class="btn" role="button">
+                    Logout
+                </a>
+            <?php } else { ?>
+                <a href="../Controllers/login.php" class="btn" role="button">
+                    Iniciar Sesión
+                </a>
+                <a href="../Controllers/register.php" class="btn" role="button">
+                    Registrar
+                </a>
+            <?php } ?>
         </div>
     </div>
-</section>
-<div class="clearfix"></div>
-<section class="search-box">
 
+</section>
+<?php if ($errorCode == 1) {
+    echo "<script>alert('No puedes elegir una fecha anterior al check-in!')</script>";
+}elseif ($errorCode==2){
+    echo "<script>alert('Fechas no disponibles! ')</script>";
+}elseif($errorCode==3){
+    echo "<script>alert('Reserva completada! ')</script>";
+}
+?>
+<div class="clearfix"></div>
+
+<?php if (isset($_SESSION["userName"])){ ?>
     <!--Datepicker-->
     <div class="box container pt-3 mt-5 border">
         <form method="post">
@@ -125,54 +155,83 @@
             </div>
         </form>
     </div>
-    <div class="container p-5 mb-5 border">
+<?php } ?>
+<div class="container p-5 border">
 
-        <div class="name mb-5 text-center">
-            <h2><?php echo $hotel->getNameHotel(); ?> <span><?php echo $hotel->getStarsHotel(); ?> &#11088;</span></h2>
-        </div>
-
-        <div class="serv mb-5">
-            <p>
-                <strong>Ubicación: </strong><?php echo $hotel->getNeighbor()->getNameNeighbor() . ", " . $hotel->getNeighbor()->getZip() . ", "
-                    . $hotel->getCity()->getNameCity() . ", " . $hotel->getState()->getNameState() . ", " . $hotel->getCountry()->getNameCountry() . "."; ?>
-            </p>
-            <p><strong>Descripción: </strong><?php echo $hotel->getDescription(); ?></p>
-
-            <p><strong>Servicios Destacados:</strong>
-                <?php foreach ($hotel->getServices() as $hService) { ?>
-                    <?php echo $hService->getNameService(); ?>
-                <?php } ?>
-            </p>
-        </div>
-
-        <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-
-                <div class="carousel-item active">
-                    <img src="<?php echo $hotel->getSources()[0]->getUrl(); ?>" class="d-block w-100" alt="...">
-                </div>
-                <?php for ($i = 1; $i < count($hotel->getSources()); $i++) { ?>
-                    <div class="carousel-item">
-                        <img src="<?php echo $hotel->getSources()[$i]->getUrl(); ?>" class="d-block w-100"
-                             alt="...">
-                    </div>
-                <?php } ?>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls"
-                    data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselControls"
-                    data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-
+    <div class="name mb-5 text-center">
+        <h2><?php echo $hotel->getNameHotel(); ?> <span><?php echo $hotel->getStarsHotel(); ?> &#11088;</span></h2>
     </div>
 
-</section>
+    <div class="serv mb-5">
+        <p>
+            <strong>Ubicación: </strong><?php echo $hotel->getNeighbor()->getNameNeighbor() . ", " . $hotel->getNeighbor()->getZip() . ", "
+                . $hotel->getCity()->getNameCity() . ", " . $hotel->getState()->getNameState() . ", " . $hotel->getCountry()->getNameCountry() . "."; ?>
+        </p>
+        <p><strong>Descripción: </strong><?php echo $hotel->getDescription(); ?></p>
+
+        <p><strong>Servicios Destacados:</strong>
+            <?php foreach ($hotel->getServices() as $hService) { ?>
+                <?php echo $hService->getNameService(); ?>
+            <?php } ?>
+        </p>
+        <p><strong>Price:</strong> <?php echo $hotel->getPrice()."€/Noche"; ?></p>
+    </div>
+
+    <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <img src="<?php echo $hotel->getSources()[0]->getUrl(); ?>" class="d-block w-100" alt="...">
+            </div>
+            <?php for ($i = 1; $i < count($hotel->getSources()); $i++) { ?>
+                <div class="carousel-item">
+                    <img src="<?php echo $hotel->getSources()[$i]->getUrl(); ?>" class="d-block w-100"
+                         alt="...">
+                </div>
+            <?php } ?>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselControls"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+</div>
+<!--comentarios-->
+
+<div class="container mb-5 border">
+    <div class="comment-box mt-4 mx-5">
+        <h3>Comentarios</h3>
+        <article class="article-box mb-5">
+            <?php  foreach ($comments as $comment) { ?>
+                <p><strong> <?php echo $comment->getNameUser(); ?> comentó:</strong></p>
+                <article class="article-text ">
+                    <p><?php echo $comment->getComment(); ?></p>
+                </article>
+            <?php } ?>
+        </article>
+    </div>
+
+    <?php
+
+    //Formulario comentarios
+    if (isset($_SESSION["userName"])) { ?>
+    <form class="formLog mx-5" method="post" action="../Controllers/extrasController.php">
+        <div class="form-element">
+            <textarea name="comentario" placeholder="Danos tu opinión..." rows="5" cols="80" maxlength="255"
+                      required></textarea>
+        </div>
+        <button class="boton mt-1" type="submit">Enviar</button>
+    </form>
+</div>
+
+<?php } ?>
 
 </body>
 </html>

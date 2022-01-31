@@ -94,7 +94,7 @@ class listModel
         $objHotels = array();
         while ($result = $query->fetch_assoc()) {
             $objHotels[] = new hotel($result["id"], $result["nameHotel"],$result["starsHotel"],$this->getCountry($result["idCountry"]),$this->getState($result["idState"]),
-                $this->getCity($result["idCity"]),$this->getNeighbor($result["idNeighbor"]),$this->getNeighbor($result["idNeighbor"]),$result["description"],$this->getSources($result["id"]),
+                $this->getCity($result["idCity"]),$this->getNeighbor($result["idNeighbor"]),$this->getNeighbor($result["idNeighbor"]),$result["rooms"],$result["price"],$result["description"],$this->getSources($result["id"]),
                 $this->getServices($result["id"]));
         }
         return $objHotels;
@@ -108,7 +108,7 @@ class listModel
         $this->db->close();
         $result=$query->fetch_assoc();
         $objHotel= new hotel($result["id"], $result["nameHotel"],$result["starsHotel"],$this->getCountry($result["idCountry"]),$this->getState($result["idState"]),
-            $this->getCity($result["idCity"]),$this->getNeighbor($result["idNeighbor"]),$this->getNeighbor($result["idZip"]),$result["description"],$this->getSources(["id"]),
+            $this->getCity($result["idCity"]),$this->getNeighbor($result["idNeighbor"]),$this->getNeighbor($result["idZip"]),$result["rooms"],$result["price"],$result["description"],$this->getSources(["id"]),
             $this->getServices($result["id"]));
 
         return $objHotel;

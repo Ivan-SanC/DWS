@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var string $errorCode;
+ */
+?>
 <html>
 <head>
     <title>Ebooking</title>
@@ -17,7 +22,7 @@
             margin: 50px auto;
             text-align: center;
             width: 800px;
-            background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%)!important;
+            background-image: linear-gradient(to right bottom, rgba(36, 95, 221, 0.42) 10%, #5653b7 90%) !important;
         }
 
         .boton, .formLog {
@@ -116,7 +121,6 @@
 <a href="list.php">
     <h1>Ebooking</h1>
 </a>
-
 <?php if($errorCode!=""){
     if($errorCode==1){
         echo "<script>alert('Contraseña incorrecta.') </script> ";
@@ -139,6 +143,6 @@
         <button class="boton" type="submit" name="login" value="login">Log In</button>
     </form>
 </div>
-<p>No tienes cuenta?<a href="registrar.php"> Registrate aquí</a></p>
+<p>No tienes cuenta?<a href="register.php"> Registrate aquí</a></p>
 </body>
 </html>

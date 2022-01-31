@@ -2,11 +2,10 @@
 
 include_once "../Models/loginModel.php";
 session_start();
+$errorCode="";
 
-$errorCode = "";
-
-if (isset($_GET["errorCode"])) {
-    $errorCode = $_GET["errorCode"];
+if(isset($_GET["errorCode"])){
+    $errorCode=$_GET["errorCode"];
 }
 
 
@@ -23,10 +22,10 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
 
     } else {
         if (isset($_POST["username"])) {
-            if ($_POST["password"] != $user->getPassUser()) {
+            if($_POST["password"]!=$user->getPassUser()) {
                 header("Location: login.php?errorCode=1");
 
-            } else {
+            }else{
                 header("Location:login.php?errorCode=2");
             }
         }

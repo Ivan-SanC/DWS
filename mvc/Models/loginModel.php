@@ -22,7 +22,9 @@ class loginModel
         $this->db->close();
         if ($result = $query->fetch_assoc()) {
             if (crypt($pass, $result["passUser"]) == $result["passUser"]) {
-                return new user($result["id"], $result["nameUser"], $result["passUser"],$result["emailUser"]);
+                return new user($result["idUser"], $result["nameUser"], $result["passUser"],$result["emailUser"]);
+            }else{
+                return new user(0, $result["nameUser"], $result["passUser"],$result["emailUser"]);
             }
         }
         return new user(0, $name, $pass,"-");
