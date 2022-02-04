@@ -7,6 +7,7 @@ class dbo extends mysqli
     protected string $password = "Pascal.69";
     protected string $database = "db_turismo";
 
+
     //Conexion
     public function default()
     {

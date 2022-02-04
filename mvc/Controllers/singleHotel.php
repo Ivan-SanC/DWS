@@ -51,8 +51,7 @@ if(isset($_GET["id"])){
 
     }
 
+    require_once "../Views/singleHotelView.php";
 }else{
     header("Location: list.php");
 }
-
-require_once "../Views/singleHotelView.php";

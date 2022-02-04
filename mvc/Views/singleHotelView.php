@@ -141,13 +141,13 @@
                 <div class="date col-6 text-center">
                     <label for="start">Entrada:</label>
                     <input type="date" id="start" name="check-in"
-                           min="2022-01-01" max="2023-12-31" required>
+                           min=<?php echo date("Y-m-d");?> max="2023-12-31" required>
                 </div>
 
                 <div class="date col-4 text-center">
                     <label for="end">Salida:</label>
                     <input type="date" id="end" name="check-out"
-                           min="2022-01-01" max="2023-12-31" required>
+                           min="" max="2023-12-31" value="" onclick="setDia();">
                     <button class="boton" type="submit" name="submit">Reservar</button>
                 </div>
 
@@ -233,6 +233,11 @@
 </div>
 
 <?php } ?>
-
+<script>
+function setDia() {
+let dia = document.getElementById("start").value;
+document.getElementById("end").min = dia;
+}
+</script>
 </body>
 </html>
