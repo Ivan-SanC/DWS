@@ -1,27 +1,21 @@
 <?php
-
-use Entities\city;
-use Entities\country;
-use Entities\neighbor;
-use Entities\state;
-
 class hotel
 {
-    protected int $idHotel;
-    protected string $nameHotel;
-    protected string $starsHotel;
-    protected country $country;
-    protected state $state;
-    protected city $city;
-    protected neighbor $neighbor;
-    protected neighbor $zip;
-    protected int $rooms;
-    protected int $price;
-    protected string $description;
-    protected array $sources;
-    protected array $services;
-    // protected int $rating;
-    // protected comment $comment;//objeto o array?
+    public int $idHotel;
+    public string $nameHotel;
+    public string $starsHotel;
+    public country $country;
+    public state $state;
+    public city $city;
+    public neighbor $neighbor;
+    public neighbor $zip;
+    public int $rooms;
+    public int $price;
+    public string $description;
+    public array $sources;
+    public array $services;
+
+
     /**
      * @param int $idHotel
      * @param string $nameHotel

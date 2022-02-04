@@ -1,14 +1,11 @@
 <?php
-
-use DB\dbo;
-use Entities\comment;
-
 include_once "../DB/dbo.php";
 include_once "../Entities/comment.php";
 include_once "../Entities/user.php";
+
 class extrasModel
 {
-    private dbo $db;
+    public dbo $db;
 
     /**
      * @param dbo $db
@@ -18,7 +15,7 @@ class extrasModel
         $this->db = new dbo();
     }
 
-    public function insertComments($idHotel,$idUser, $comment)
+    public function insertComments($idHotel, $idUser, $comment)
     {
         $sql = "INSERT INTO table_comments (idHotel,idUser,comment) VALUES('" . $idHotel . "','" . $idUser . "','" . $comment . "');";
         $this->db->default();

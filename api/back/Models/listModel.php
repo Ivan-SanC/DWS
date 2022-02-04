@@ -1,27 +1,18 @@
 <?php
-
-use DB\dbo;
-use Entities\city;
-use Entities\country;
-use Entities\hotel;
-use Entities\neighbor;
-use Entities\service;
-use Entities\source;
-use Entities\state;
-
-require_once "../Entities/city.php"; //
-require_once "../Entities/country.php"; //
+require_once "../Entities/city.php";
+require_once "../Entities/country.php";
 require_once "../Entities/hotel.php";
-require_once "../Entities/neighbor.php"; //
+require_once "../Entities/neighbor.php";
 require_once "../Entities/service.php";
-require_once "../Entities/source.php"; //
-require_once "../Entities/state.php"; //
+require_once "../Entities/source.php";
+require_once "../Entities/state.php";
+require_once "../Entities/user.php";
 require_once "../DB/dbo.php";
 
-class singleModel
-{
 
-    private dbo $db;
+class listModel
+{
+    public dbo $db;
 
     /**
      * @param dbo $db
@@ -101,52 +92,34 @@ class singleModel
         return $objService;
     }
 
+    public function getHotels()
+    {
+        $sql = "SELECT * FROM table_hotels";
+        $this->db->default();
+        $query = $this->db->query($sql);
+        $this->db->close();
+        $objHotels = array();
+        while ($result = $query->fetch_assoc()) {
+            $objHotels[] = new hotel($result["id"], $result["nameHotel"], $result["starsHotel"], $this->getCountry($result["idCountry"]), $this->getState($result["idState"]),
+                $this->getCity($result["idCity"]), $this->getNeighbor($result["idNeighbor"]), $this->getNeighbor($result["idNeighbor"]), $result["rooms"], $result["price"], $result["description"], $this->getSources($result["id"]),
+                $this->getServices($result["id"]));
+        }
+        return $objHotels;
+
+    }
+
     public function getHotel($idHotel)
     {
-        $sql = "SELECT * FROM table_hotels WHERE id=" . $idHotel;
+        $sql = "SELECT * FROM table_hotel WHERE id=" . $idHotel;
         $this->db->default();
         $query = $this->db->query($sql);
         $this->db->close();
         $result = $query->fetch_assoc();
         $objHotel = new hotel($result["id"], $result["nameHotel"], $result["starsHotel"], $this->getCountry($result["idCountry"]), $this->getState($result["idState"]),
-            $this->getCity($result["idCity"]), $this->getNeighbor($result["idNeighbor"]), $this->getNeighbor($result["idNeighbor"]),$result["rooms"],$result["price"], $result["description"], $this->getSources($result["id"]),
+            $this->getCity($result["idCity"]), $this->getNeighbor($result["idNeighbor"]), $this->getNeighbor($result["idZip"]), $result["rooms"], $result["price"], $result["description"], $this->getSources(["id"]),
             $this->getServices($result["id"]));
 
         return $objHotel;
     }
 
-
-    public function checkDates($start,$end,$idHotel){
-        $sql="select b.id, b.idHotel, b.idUser, b.fecha, h.rooms, h.rooms-count(b.idUser) as disponibilidad ";
-        $sql.="from table_booking as b, table_hotels as h where b.idHotel='".$idHotel."' and b.fecha between '".$start."' and '".$end."' and h.id='".$idHotel."' group by b.fecha;";
-        $this->db->default();
-        $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
-        $query=$this->db->query($sql);
-        $this->db->close();
-        while ($result=$query->fetch_assoc()){
-            if($result["disponibilidad"]<=0){
-                return false;
-            }
-        }
-        return  true;
-    }
-
-    public function insertBooking($date,$idHotel,$idUser){
-        $sql="insert into table_booking (idHotel,idUser,fecha) values ('".$idHotel."','".$idUser."','".$date."');";
-        $this->db->default();
-        $this->db->query($sql);
-        if($this->db->insert_id>0){
-            $this->db->close();
-            return true;
-        }
-        $this->db->close();
-        return  false;
-
-    }
-
 }
-
-//SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));
-//select b.id,b.idHotel,b.idUser, b.fecha, h.rooms, h.rooms-count(b.idUser) as disponiblidad from table_booking as b, table_hotels as h where b.idHotel=1 and b.fecha between "2022-01-30" and '2022-02-02' and h.id=1 group by fecha;
-//SELECT * FROM table_booking WHERE ('2022-01-30' <= fecha AND fecha <= '2022-02-01');
-//select b.id,b.idHotel,b.idUser, b.fecha, h.rooms,h.rooms-count(b.idUser) as disponibilidad from table_booking as b, table_hotels as h where b.idHotel=1 and b.fecha ="2022-01-30" and h.id=1;

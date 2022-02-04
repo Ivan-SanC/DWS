@@ -1,4 +1,7 @@
 <?php
+
+use DB\dbo;
+
 include_once "dbo.php";
 
 session_start();

@@ -1,7 +1,4 @@
 <?php
-
-use Models\registerModel;
-
 require_once "../Models/registerModel.php";
 require_once "../Entities/user.php";
 session_start();

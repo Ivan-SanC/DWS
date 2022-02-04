@@ -1,7 +1,4 @@
 <?php
-
-use Models\listModel;
-
 require_once "../Models/listModel.php";
 session_start();
 

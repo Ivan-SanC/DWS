@@ -1,4 +1,7 @@
 <?php
+
+use Entities\comment;
+
 include_once "author.php";
 include_once "genreNew.php";
 include_once "movie.php";

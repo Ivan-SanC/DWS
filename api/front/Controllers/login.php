@@ -1,8 +1,5 @@
 <?php
-
-use Models\loginModel;
-
-include_once "../Models/loginModel.php";
+require_once "../Models/loginModel.php";
 session_start();
 $errorCode="";
 
@@ -34,5 +31,5 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
     }
 
 } else {
-    include_once "../Views/loginView.php";
+    require_once "../Views/loginView.php";
 }

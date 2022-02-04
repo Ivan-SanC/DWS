@@ -1,4 +1,7 @@
 <?php
+
+use Models\loginModel;
+
 require_once "../Models/loginModel.php";
 session_start();
 

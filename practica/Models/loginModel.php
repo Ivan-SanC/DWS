@@ -1,4 +1,8 @@
 <?php
+
+use DB\dbo;
+use Entities\user;
+
 include_once "../DBO/dbo.php";
 include_once "../Entities/user.php";
 

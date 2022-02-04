@@ -1,8 +1,6 @@
 <?php
 
-use Models\extrasModel;
-
-include_once "../Models/extrasModel.php";
+require_once "../Models/extrasModel.php";
 session_start();
 $eModel=new extrasModel();
 

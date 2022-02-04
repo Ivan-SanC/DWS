@@ -1,4 +1,7 @@
 <?php
+
+use Entities\user;
+
 include_once "user.php";
 
 class country

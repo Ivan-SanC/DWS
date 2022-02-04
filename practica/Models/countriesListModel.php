@@ -1,4 +1,9 @@
 <?php
+
+use DB\dbo;
+use Entities\country;
+use Entities\user;
+
 include_once "../DBO/dbo.php";
 include_once "../Entities/city.php";
 include_once "../Entities/countrylanguage.php";
