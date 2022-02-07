@@ -1,8 +1,9 @@
 <?php
+
 class state
 {
     public int $idState;
-    public string $nameState;
+    public string  $nameState;
 
     /**
      * @param int $idState

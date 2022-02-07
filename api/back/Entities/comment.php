@@ -1,4 +1,5 @@
 <?php
+
 class comment
 {
     public string $nameUser;
@@ -29,6 +30,7 @@ class comment
     {
         return $this->comment;
     }
+
 
 
 }

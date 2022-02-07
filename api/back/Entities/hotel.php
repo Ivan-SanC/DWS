@@ -1,4 +1,10 @@
 <?php
+include_once "../Entities/country.php";
+include_once "../Entities/state.php";
+include_once "../Entities/city.php";
+include_once "../Entities/neighbor.php";
+
+
 class hotel
 {
     public int $idHotel;

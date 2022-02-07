@@ -1,9 +1,10 @@
 <?php
+
 class neighbor
 {
     public int $idNeighbor;
     public string $nameNeighbor;
-    public string $zip;
+    public string   $zip;
 
     /**
      * @param int $idNeighbor
@@ -40,6 +41,8 @@ class neighbor
     {
         return $this->zip;
     }
+
+
 
 
 }

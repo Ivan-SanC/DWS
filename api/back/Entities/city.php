@@ -1,8 +1,9 @@
 <?php
+
 class city
 {
     public int $idCity;
-    public string $nameCity;
+    public string  $nameCity;
 
 
     /**

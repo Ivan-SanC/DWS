@@ -1,8 +1,9 @@
 <?php
+
 class country
 {
     public int $idCountry;
-    public string $nameCountry;
+    public string  $nameCountry;
 
     /**
      * @param int $idCountry

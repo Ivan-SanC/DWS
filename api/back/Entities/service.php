@@ -1,8 +1,9 @@
 <?php
+
 class service
 {
     public int $idService;
-    public string $nameService;
+    public string  $nameService;
 
     /**
      * @param int $idService

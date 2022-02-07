@@ -1,7 +1,8 @@
 <?php
+
 class user
 {
-    public int $idUser;
+    public  int $idUser;
     public string $nameUser;
     public string $passUser;
     public string $email;
