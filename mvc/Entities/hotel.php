@@ -1,9 +1,5 @@
 <?php
 
-use Entities\city;
-use Entities\country;
-use Entities\neighbor;
-use Entities\state;
 
 class hotel
 {

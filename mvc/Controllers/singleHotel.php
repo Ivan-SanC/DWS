@@ -1,8 +1,5 @@
 <?php
 
-use Models\extrasModel;
-use Models\singleModel;
-
 require_once "../Models/singleModel.php";
 require_once "../Models/extrasModel.php";
 session_start();

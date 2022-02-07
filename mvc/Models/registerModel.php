@@ -1,8 +1,5 @@
 <?php
 
-use DB\dbo;
-use Entities\user;
-
 require_once "../DB/dbo.php";
 require_once "../Entities/user.php";
 

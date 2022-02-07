@@ -1,7 +1,5 @@
 <?php
 
-use Models\loginModel;
-
 include_once "../Models/loginModel.php";
 session_start();
 $errorCode="";

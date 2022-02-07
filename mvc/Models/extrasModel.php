@@ -1,8 +1,5 @@
 <?php
 
-use DB\dbo;
-use Entities\comment;
-
 include_once "../DB/dbo.php";
 include_once "../Entities/comment.php";
 include_once "../Entities/user.php";

@@ -1,14 +1,5 @@
 <?php
 
-use DB\dbo;
-use Entities\city;
-use Entities\country;
-use Entities\hotel;
-use Entities\neighbor;
-use Entities\service;
-use Entities\source;
-use Entities\state;
-
 require_once "../Entities/city.php";
 require_once "../Entities/country.php";
 require_once "../Entities/hotel.php";
