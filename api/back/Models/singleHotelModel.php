@@ -125,11 +125,13 @@ class singleHotelModel
         $sql="insert into table_booking (idHotel,idUser,fecha) values ('".$idHotel."','".$idUser."','".$date."');";
         $this->db->default();
         $this->db->query($sql);
+        $errorSql = $this->db->error->getMessage();
         if($this->db->insert_id>0){
             $this->db->close();
             return true;
         }
         $this->db->close();
+        return $errorSql;
         return  false;
 
     }

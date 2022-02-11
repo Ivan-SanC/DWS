@@ -17,13 +17,15 @@ if (isset($_GET["id"])) {
             $return["error"] =1;
 
         }else {
-            if ($single->checkDates($start, $end, $_GET["id"]) == false) {
+            $checkin=date("Y-m-d",$start);
+            $checkout=date("Y-m-d",$end);
+            if ($single->checkDates($checkin, $checkout, $_GET["id"]) == false) {
                 $return["error"] =2;
             } else {
 
                 //Fecha como segundos
-                $tiempoInicio = strtotime($start);
-                $tiempoFin = strtotime($end);
+                $tiempoInicio = $start;
+                $tiempoFin = $end;
 
                 //24 horas * 60 minutos por hora * 60 segundos por minuto
                 $dia = 86400;
@@ -31,7 +33,7 @@ if (isset($_GET["id"])) {
                 while ($tiempoInicio <= $tiempoFin) {
 
                     $date = date("Y-m-d", $tiempoInicio);
-                    $single->insertBooking($_GET["id"], $_GET["idUser"],$date);
+                    $insert = $single->insertBooking($_GET["id"], $_GET["userId"],$date);
                     $tiempoInicio += $dia;
                 }
                 $return["error"] =3;
