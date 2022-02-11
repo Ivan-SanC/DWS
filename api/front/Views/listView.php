@@ -73,10 +73,10 @@
                     Logout
                 </a>
             <?php } else { ?>
-                <a href="../Controllers/login.php" class="btn" role="button">
+                <a href="../Controllers/loginController.php" class="btn" role="button">
                     Iniciar Sesión
                 </a>
-                <a href="../Controllers/register.php" class="btn" role="button">
+                <a href="../Controllers/registerController.php" class="btn" role="button">
                     Registrar
                 </a>
             <?php } ?>

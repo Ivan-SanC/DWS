@@ -118,7 +118,7 @@
 
 </head>
 <body>
-<a href="list.php">
+<a href="listController.php">
     <h1>Ebooking</h1>
 </a>
 <?php
@@ -134,7 +134,7 @@ if($errorCode!=""){
 ?>
 <div class="container mx-auto mt-4 custom">
     <h3>Registro</h3>
-    <form class="formReg" action="register.php" method="post">
+    <form class="formReg" action="registerController.php" method="post">
         <div class="form-element">
             <label>Email: </label>
             <input type="email" name="email" required/>
@@ -149,7 +149,7 @@ if($errorCode!=""){
         </div>
         <button class="boton" type="submit">Registrar</button>
     </form>
-    <p>Tienes cuenta? <a href="login.php">Entra aquí</a></p>
+    <p>Tienes cuenta? <a href="loginController.php">Entra aquí</a></p>
 </div>
 
 </body>

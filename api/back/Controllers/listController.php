@@ -1,8 +1,10 @@
 <?php
 require_once "../Models/listModel.php";
 
+
 $listModel = new listModel();
 $hotels = $listModel->getHotels();
+
 
 echo json_encode($hotels);
 

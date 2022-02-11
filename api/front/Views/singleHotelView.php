@@ -160,33 +160,33 @@
 <div class="container p-5 border">
 
     <div class="name mb-5 text-center">
-        <h2><?php echo $hotel["nameHotel"]; ?> <span><?php echo $hotel["starsHotel"]; ?> &#11088;</span></h2>
+        <h2><?php echo $hotel->nameHotel; ?> <span><?php echo $hotel->starsHotel; ?> &#11088;</span></h2>
     </div>
 
     <div class="serv mb-5">
         <p>
-            <strong>Ubicación: </strong><?php echo $hotel["neighbor"]["nameNeighbor"]. ", " . $hotel["neighbor"]["zip"] . ", "
-                . $hotel["city"]["nameCity"]. ", " . $hotel["state"]["nameState"]. ", " . $hotel["country"]["nameCountry"]. "."; ?>
+            <strong>Ubicación: </strong><?php echo $hotel->neighbor->nameNeighbor. ", " . $hotel->neighbor->zip. ", "
+                . $hotel->city->nameCity. ", " . $hotel->state->nameState. ", " . $hotel->country->nameCountry. "."; ?>
         </p>
-        <p><strong>Descripción: </strong><?php echo  $hotel["description"]; ?></p>
+        <p><strong>Descripción: </strong><?php echo  $hotel->description; ?></p>
 
         <p><strong>Servicios Destacados:</strong>
-            <?php foreach ($hotel["services"] as $hService) { ?>
-                <?php echo $hService["nameService"]; ?>
+            <?php foreach ($hotel->services as $hService) { ?>
+                <?php echo $hService->nameService; ?>
             <?php } ?>
         </p>
-        <p><strong>Price:</strong> <?php echo $hotel["price"] . "€/Noche"; ?></p>
+        <p><strong>Price:</strong> <?php echo $hotel->price . "€/Noche"; ?></p>
     </div>
 
     <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
 
             <div class="carousel-item active">
-                <img src="<?php echo $hotel["sources"][0]["url"]; ?>" class="d-block w-100" alt="...">
+                <img src="<?php echo $hotel->sources[0]->url; ?>" class="d-block w-100" alt="...">
             </div>
-            <?php for ($i = 1; $i < count($hotel["sources"]); $i++) { ?>
+            <?php for ($i = 1; $i < count($hotel->sources); $i++) { ?>
                 <div class="carousel-item">
-                    <img src="<?php echo $hotel["sources"][$i]["url"]; ?>" class="d-block w-100"
+                    <img src="<?php echo $hotel->sources[$i]->url; ?>" class="d-block w-100"
                          alt="...">
                 </div>
             <?php } ?>

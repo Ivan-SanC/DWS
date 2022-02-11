@@ -2,28 +2,29 @@
 require_once "../Models/registerModel.php";
 
 $return = array();
-$result = false;
+$result =new user(0,"-","-","-");
 $error = "";
 
 
 if (isset($_GET["name"])&&isset($_GET["pass"])){
     $register= new registerModel();
+
     if($register->checkUser($_GET["mail"],$_GET["name"])){
-        $error="El usuario existe";
+        $error=1;
     } else {
         try {
-            $password = crypt($_GET["password"], bin2hex(random_bytes(10)));
+            $password = crypt($_GET["pass"], bin2hex(random_bytes(10)));
         } catch (Exception $e) {
-            $password = crypt($_GET["password"], "salt");
+            $password = crypt($_GET["pass"], "salt");
         }
         if ($register->insertUser($_GET["mail"],$_GET["name"], $password)) {
-            $result = true;
+            $result = $register->getUser($_GET["name"],$_GET["pass"]);
         } else {
-            $error = "Sign up gone wrong";
+            $error =2;
         }
     }
 } else {
-    $error = "Sign up gone wrong";
+    $error =3;
 }
 
 $return["result"] = $result;

@@ -118,7 +118,7 @@
 
 </head>
 <body>
-<a href="list.php">
+<a href="listController.php">
     <h1>Ebooking</h1>
 </a>
 <?php if($errorCode!=""){
@@ -143,6 +143,6 @@
         <button class="boton" type="submit" name="login" value="login">Log In</button>
     </form>
 </div>
-<p>No tienes cuenta?<a href="register.php"> Registrate aquí</a></p>
+<p>No tienes cuenta?<a href="registerController.php"> Registrate aquí</a></p>
 </body>
 </html>
