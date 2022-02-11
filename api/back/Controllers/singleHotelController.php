@@ -48,12 +48,9 @@ if (isset($_GET["id"])) {
 
 echo json_encode($return);
 
-//falta fechas reservas
-//user y action
-//checkin checkout
-//error code
 
+//con segundos
 //http://localhost/iSanchez/api/back/Controllers/singleHotelController.php?id=2&start=1644793200&end=1645311600&userId=1
 
-
+//con fechas
 //http://localhost/dws/api/back/Controllers/singleHotelController.php?id=1&start=2022-02-22&end=2022-02-24&idUser=7

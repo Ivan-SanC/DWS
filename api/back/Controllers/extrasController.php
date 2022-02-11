@@ -15,4 +15,4 @@ if (isset($_GET["id"])) {
 }
 echo json_encode($comments);
 
-//http://localhost/dws/api/back/Controllers/extrasController.php?id=1&userId=1&comment=hola
+//http://localhost/iSanchez/api/back/Controllers/extrasController.php?id=1&userId=1&comment=hola
