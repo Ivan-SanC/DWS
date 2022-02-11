@@ -6,3 +6,4 @@ if (isset($_POST["comentario"])) {
 
     header('Location:singleHotelController.php?id='.$_SESSION["idHotel"]);
 }
+//No inserta el comentario en la bd

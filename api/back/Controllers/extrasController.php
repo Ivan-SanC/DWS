@@ -15,6 +15,4 @@ if (isset($_GET["id"])) {
 }
 echo json_encode($comments);
 
-//todos los insert fallan en el if the insert_id cambiar por otra?
-
 //http://localhost/dws/api/back/Controllers/extrasController.php?id=1&userId=1&comment=hola

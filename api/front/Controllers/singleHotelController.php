@@ -1,7 +1,6 @@
 <?php
 $url="http://localhost/iSanchez/api/back/Controllers/singleHotelController.php?id=";
 $urlEx="http://localhost/iSanchez/api/back/Controllers/extrasController.php?id=";
-//no actualiza comments ni mete
 
 session_start();
 $errorCode="";
@@ -21,6 +20,7 @@ if(isset($_GET["id"])){
         //Fecha como segundos
         $tiempoInicio = strtotime($_POST["check-in"]);
         $tiempoFin = strtotime($_POST["check-out"]);
+
         $url="http://localhost/iSanchez/api/back/Controllers/singleHotelController.php?id=".$_SESSION["idHotel"]."&start=".$tiempoInicio."&end=".$tiempoFin."&userId=". $_SESSION["userId"];
     }
     $errorCode=json_decode(file_get_contents($url.$_GET["id"]))->error;
@@ -35,4 +35,4 @@ if(isset($_GET["id"])){
 
 require_once "../Views/singleHotelView.php";
 
-//fallan alerts y reservas comentarios igual
+//Los alert no se muestran en la web y no se insertan las reservas en la base de datos
