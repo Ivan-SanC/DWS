@@ -4,7 +4,7 @@ class dbo extends mysqli
 {
     public string $hostname="localhost";
     public string $nameuser="root";
-    public string $password="admin";
+    public string $password="Pascal.69";
     public string $database="db_sakila";
 
     public function default(){
