@@ -1,6 +1,6 @@
 <?php
-$url="http://localhost/iSanchez/api/back/Controllers/singleHotelController.php?id=";
-$urlEx="http://localhost/iSanchez/api/back/Controllers/extrasController.php?id=";
+$url="http://localhost/iSanchez/api/back/Controllers/singleHotelController.php?id=".$_GET["id"];
+$urlEx="http://localhost/iSanchez/api/back/Controllers/extrasController.php?id=".$_GET["id"];
 
 session_start();
 $errorCode="";
@@ -11,22 +11,15 @@ if (isset($_GET["errorCode"])) {
 
 
 if(isset($_GET["id"])){
-    $hotel=json_decode(file_get_contents($url.$_GET["id"]))->hotel;
-    $comments=json_decode(file_get_contents($urlEx.$_GET["id"]), true);
+    $hotel=json_decode(file_get_contents($url))->hotel;
+    $comments=json_decode(file_get_contents($urlEx), true);
     $_SESSION["idHotel"]=$_GET["id"];
 
 
     if (isset($_POST["check-in"])&&isset($_POST["check-out"])){
-        //Fecha como segundos
-        $tiempoInicio = strtotime($_POST["check-in"]);
-        $tiempoFin = strtotime($_POST["check-out"]);
 
-        $url="http://localhost/iSanchez/api/back/Controllers/singleHotelController.php?id=".$_SESSION["idHotel"]."&start=".$tiempoInicio."&end=".$tiempoFin."&userId=". $_SESSION["userId"];
-    }
-    $errorCode=json_decode(file_get_contents($url.$_GET["id"]))->error;
-    //var_dump($errorCode);
-    if($errorCode!="") {
-        header("Location: singleHotelController.php?id=".$_SESSION["idHotel"]."&errorCode=".$errorCode);
+        $url="http://localhost/iSanchez/api/back/Controllers/singleHotelController.php?id=".$_SESSION["idHotel"]."&start=".$_POST["check-in"]."&end=".$_POST["check-out"]."&userId=". $_SESSION["userId"];
+        $errorCode=json_decode(file_get_contents($url))->error;
     }
 
 }else{
